@@ -329,9 +329,9 @@ class Call(PyTgCalls):
                     video_flags=MediaStream.IGNORE,
                 )
             )
-             try:
-                try:
-                  await assistant.join_group_call(
+                     try:
+            try:
+                await assistant.join_group_call(
                     chat_id,
                     stream,
                 )
