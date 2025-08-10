@@ -1,5 +1,5 @@
 <h2 align="center">
-    ─「 𝐒ᴛʀᴀɴɢᴇʀ 𝘅 𝐌ᴜsɪᴄ 」─
+    ─「 𝐇ᴇᴀʀᴛʙᴇᴀᴛ 𝘅 𝐃ʀᴜɢᴢ 」─
 
 </h2>
 
@@ -8,7 +8,7 @@
 
 
 <p align="center">
-  <img src="https://telegra.ph/file/13afb9ee5c5da17930f1e.png">
+  <img src="https://images.hdqwalls.com/wallpapers/agent-cat-girl-4k-jw.jpg">
 </p>
 
 
