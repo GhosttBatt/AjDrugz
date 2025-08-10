@@ -15,53 +15,59 @@ from pyrogram import filters
 from HeartBeat.core.call import GhosttBatt
 from pyrogram.types import VideoChatEnded, Message
 from pytgcalls import PyTgCalls
-from pytgcalls.types import MediaStream
 from pytgcalls.types.input_stream import AudioPiped, AudioVideoPiped
-from pytgcalls.exceptions import (NoActiveGroupCall, TelegramServerError, AlreadyJoinedError)
+from pytgcalls.types.stream import StreamAudioEnded
+from pytgcalls.types.stream import StreamType
+from pytgcalls.exceptions import NoActiveGroupCall
 from HeartBeat.utils.admin_filters import admin_filter
 from config import BANNED_USERS
-
+# pytgcalls updated lines-----------------------------------------------------------
 @app.on_message(filters.command(["vcinfo"], ["/", "!"]))
 async def strcall(client, message):
     assistant = await group_assistant(GhosttBatt, message.chat.id)
     try:
-        await assistant.join_group_call(message.chat.id, AudioPiped("./HeartBeat/assets/call.mp3"), stream_type=MediaStream().pulse_stream)
+        await assistant.join_group_call(
+            message.chat.id,
+            AudioPiped("./HeartBeat/assets/call.mp3"),
+            stream_type=StreamType().pulse_stream  # ✅ Correct type for 2.2.5
+        )
         text = "- Beloveds in the call 🫶 :\n\n"
         participants = await assistant.get_participants(message.chat.id)
         k = 0
         for participant in participants:
-            info = participant
-            if info.muted == False:
-                mut = "ꜱᴘᴇᴀᴋɪɴɢ 🗣 "
-            else:
-                mut = "ᴍᴜᴛᴇᴅ 🔕 "
-            user = await client.get_users(participant.user_id)
-            k += 1
-            text += f"{k} ➤ {user.mention} ➤ {mut}\n"
-        text += f"\nɴᴜᴍʙᴇʀ ᴏꜰ ᴘᴀʀᴛɪᴄɪᴘᴀɴᴛꜱ : {len(participants)}"
-        await message.reply(f"{text}")
-        await asyncio.sleep(7)
-        await assistant.leave_group_call(message.chat.id)
-    except NoActiveGroupCall:
-        await message.reply(f"ᴛʜᴇ ᴄᴀʟʟ ɪꜱ ɴᴏᴛ ᴏᴘᴇɴ ᴀᴛ ᴀʟʟ")
-    except TelegramServerError:
-        await message.reply(f"ꜱᴇɴᴅ ᴛʜᴇ ᴄᴏᴍᴍᴀɴᴅ ᴀɢᴀɪɴ, ᴛʜᴇʀᴇ ɪꜱ ᴀ ᴘʀᴏʙʟᴇᴍ ᴡɪᴛʜ ᴛʜᴇ ᴛᴇʟᴇɢʀᴀᴍ ꜱᴇʀᴠᴇʀ ❌")
-    except AlreadyJoinedError:
-        text = "ʙᴇʟᴏᴠᴇᴅꜱ ɪɴ ᴛʜᴇ ᴠᴏɪᴄᴇ ᴄʜᴀᴛ 🫶 :\n\n"
-        participants = await assistant.get_participants(message.chat.id)
-        k = 0
-        for participant in participants:
-            info = participant
-            if info.muted == False:
+            if not participant.muted:
                 mut = "ꜱᴘᴇᴀᴋɪɴɢ 🗣"
             else:
-                mut = "ᴍᴜᴛᴇᴅ 🔕 "
+                mut = "ᴍᴜᴛᴇᴅ 🔕"
             user = await client.get_users(participant.user_id)
             k += 1
             text += f"{k} ➤ {user.mention} ➤ {mut}\n"
         text += f"\nɴᴜᴍʙᴇʀ ᴏꜰ ᴘᴀʀᴛɪᴄɪᴘᴀɴᴛꜱ : {len(participants)}"
-        await message.reply(f"{text}")
+        await message.reply(text)
+        await asyncio.sleep(7)
+        await assistant.leave_group_call(message.chat.id)
 
+    except NoActiveGroupCall:
+        await message.reply("ᴛʜᴇ ᴄᴀʟʟ ɪꜱ ɴᴏᴛ ᴏᴘᴇɴ ᴀᴛ ᴀʟʟ")
+    except Exception as e:
+        if "already joined" in str(e).lower():
+            # ✅ Simulating the behavior of the old AlreadyJoinedError
+            text = "ʙᴇʟᴏᴠᴇᴅꜱ ɪɴ ᴛʜᴇ ᴠᴏɪᴄᴇ ᴄʜᴀᴛ 🫶 :\n\n"
+            participants = await assistant.get_participants(message.chat.id)
+            k = 0
+            for participant in participants:
+                if not participant.muted:
+                    mut = "ꜱᴘᴇᴀᴋɪɴɢ 🗣"
+                else:
+                    mut = "ᴍᴜᴛᴇᴅ 🔕"
+                user = await client.get_users(participant.user_id)
+                k += 1
+                text += f"{k} ➤ {user.mention} ➤ {mut}\n"
+            text += f"\nɴᴜᴍʙᴇʀ ᴏꜰ ᴘᴀʀᴛɪᴄɪᴘᴀɴᴛꜱ : {len(participants)}"
+            await message.reply(text)
+        else:
+            await message.reply(f"Unexpected error: <code>{str(e)}</code>")
+#----------------------------------------------------------------------
 
 other_filters = filters.group  & ~filters.via_bot & ~filters.forwarded
 other_filters2 = (
