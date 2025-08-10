@@ -14,8 +14,6 @@ from typing import List, Union
 from pyrogram import filters
 from HeartBeat.core.call import GhosttBatt
 from pyrogram.types import VideoChatEnded, Message
-from pytgcalls import PyTgCalls
-from pytgcalls.types.input_stream import InputStream
 from pytgcalls.types.input_stream.fftpc import AudioPiped
 from pytgcalls.types.stream import StreamType
 from pytgcalls.exceptions import NoActiveGroupCall
