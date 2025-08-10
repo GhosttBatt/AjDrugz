@@ -7,8 +7,10 @@ from pyrogram import Client
 from pyrogram.types import InlineKeyboardMarkup
 from ntgcalls import TelegramServerError
 from pytgcalls import PyTgCalls
-from pytgcalls.exceptions import NoActiveGroupCall
-
+from pytgcalls.exceptions import (
+    AlreadyJoinedError,
+    NoActiveGroupCall,
+)
 from pytgcalls.types import (
     MediaStream,
     AudioQuality,
@@ -18,9 +20,9 @@ from pytgcalls.types import (
 from pytgcalls.types.stream import StreamAudioEnded
 
 import config
-from BrandrdXMusic import LOGGER, YouTube, app
-from BrandrdXMusic.misc import db
-from BrandrdXMusic.utils.database import (
+from HeartBeat import LOGGER, YouTube, app
+from HeartBeat.misc import db
+from HeartBeat.utils.database import (
     add_active_chat,
     add_active_video_chat,
     get_lang,
@@ -32,11 +34,11 @@ from BrandrdXMusic.utils.database import (
     remove_active_video_chat,
     set_loop,
 )
-from BrandrdXMusic.utils.exceptions import AssistantErr
-from BrandrdXMusic.utils.formatters import check_duration, seconds_to_min, speed_converter
-from BrandrdXMusic.utils.inline.play import stream_markup, stream_markup2
-from BrandrdXMusic.utils.stream.autoclear import auto_clean
-from BrandrdXMusic.utils.thumbnails import get_thumb
+from HeartBeat.utils.exceptions import AssistantErr
+from HeartBeat.utils.formatters import check_duration, seconds_to_min, speed_converter
+from HeartBeat.utils.inline.play import stream_markup, stream_markup2
+from HeartBeat.utils.stream.autoclear import auto_clean
+from HeartBeat.utils.thumbnails import get_thumb
 from strings import get_string
 
 autoend = {}
@@ -53,7 +55,7 @@ async def _clear_(chat_id):
 class Call(PyTgCalls):
     def __init__(self):
         self.userbot1 = Client(
-            name="BrandrdXMusic1",
+            name="HeartBeat1",
             api_id=config.API_ID,
             api_hash=config.API_HASH,
             session_string=str(config.STRING1),
@@ -63,7 +65,7 @@ class Call(PyTgCalls):
             cache_duration=100,
         )
         self.userbot2 = Client(
-            name="BrandrdXMusic2",
+            name="HeartBeat2",
             api_id=config.API_ID,
             api_hash=config.API_HASH,
             session_string=str(config.STRING2),
@@ -73,7 +75,7 @@ class Call(PyTgCalls):
             cache_duration=100,
         )
         self.userbot3 = Client(
-            name="BrandrdXMusic3",
+            name="HeartBeat3",
             api_id=config.API_ID,
             api_hash=config.API_HASH,
             session_string=str(config.STRING3),
@@ -83,7 +85,7 @@ class Call(PyTgCalls):
             cache_duration=100,
         )
         self.userbot4 = Client(
-            name="BrandrdXMusic4",
+            name="HeartBeat4",
             api_id=config.API_ID,
             api_hash=config.API_HASH,
             session_string=str(config.STRING4),
@@ -93,7 +95,7 @@ class Call(PyTgCalls):
             cache_duration=100,
         )
         self.userbot5 = Client(
-            name="BrandrdXMusic5",
+            name="HeartBeat5",
             api_id=config.API_ID,
             api_hash=config.API_HASH,
             session_string=str(config.STRING5),
@@ -309,7 +311,6 @@ class Call(PyTgCalls):
         assistant = await group_assistant(self, chat_id)
         language = await get_lang(chat_id)
         _ = get_string(language)
-
         if video:
             stream = MediaStream(
                 link,
@@ -317,12 +318,19 @@ class Call(PyTgCalls):
                 video_parameters=VideoQuality.SD_480p,
             )
         else:
-            stream = MediaStream(
-                link,
-                audio_parameters=AudioQuality.HIGH,
-                video_flags=MediaStream.IGNORE,
+            stream = (
+                MediaStream(
+                    link,
+                    audio_parameters=AudioQuality.HIGH,
+                    video_parameters=VideoQuality.SD_480p,
+                )
+                if video
+                else MediaStream(
+                    link,
+                    audio_parameters=AudioQuality.HIGH,
+                    video_flags=MediaStream.IGNORE,
+                )
             )
-
         try:
             await assistant.join_group_call(
                 chat_id,
@@ -330,19 +338,13 @@ class Call(PyTgCalls):
             )
         except NoActiveGroupCall:
             raise AssistantErr(_["call_8"])
-        except Exception as e:
-            if "already joined" in str(e).lower():
-                raise AssistantErr(_["call_9"])
-            elif "phone.CreateGroupCall" in str(e):
-                raise AssistantErr(_["call_8"])
-            else:
-                raise AssistantErr(_["call_10"])
+        except AlreadyJoinedError:
+            raise AssistantErr(_["call_9"])
         except TelegramServerError:
             raise AssistantErr(_["call_10"])
         except Exception as e:
             if "phone.CreateGroupCall" in str(e):
                 raise AssistantErr(_["call_8"])
-
         await add_active_chat(chat_id)
         await music_on(chat_id)
         if video:
