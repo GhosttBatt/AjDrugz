@@ -309,6 +309,7 @@ class Call(PyTgCalls):
         assistant = await group_assistant(self, chat_id)
         language = await get_lang(chat_id)
         _ = get_string(language)
+
         if video:
             stream = MediaStream(
                 link,
@@ -316,25 +317,17 @@ class Call(PyTgCalls):
                 video_parameters=VideoQuality.SD_480p,
             )
         else:
-            stream = (
-                MediaStream(
-                    link,
-                    audio_parameters=AudioQuality.HIGH,
-                    video_parameters=VideoQuality.SD_480p,
-                )
-                if video
-                else MediaStream(
-                    link,
-                    audio_parameters=AudioQuality.HIGH,
-                    video_flags=MediaStream.IGNORE,
-                )
+            stream = MediaStream(
+                link,
+                audio_parameters=AudioQuality.HIGH,
+                video_flags=MediaStream.IGNORE,
             )
-                     try:
-            try:
-                await assistant.join_group_call(
-                    chat_id,
-                    stream,
-                )
+
+        try:
+            await assistant.join_group_call(
+                chat_id,
+                stream,
+            )
         except NoActiveGroupCall:
             raise AssistantErr(_["call_8"])
         except Exception as e:
@@ -349,6 +342,7 @@ class Call(PyTgCalls):
         except Exception as e:
             if "phone.CreateGroupCall" in str(e):
                 raise AssistantErr(_["call_8"])
+
         await add_active_chat(chat_id)
         await music_on(chat_id)
         if video:
