@@ -10,5 +10,6 @@ COPY . .
 
 RUN pip3 install --no-cache-dir --upgrade pip \
     && pip3 install --no-cache-dir --upgrade -r requirements.txt
+RUN pip install --upgrade py‑tgcalls==2.2.5
 
 CMD bash start
