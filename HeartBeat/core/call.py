@@ -36,7 +36,7 @@ from HeartBeat.utils.database import (
 )
 from HeartBeat.utils.exceptions import AssistantErr
 from HeartBeat.utils.formatters import check_duration, seconds_to_min, speed_converter
-from HeartBeat.utils.inline.play import stream_markup, stream_markup2
+from HeartBeat.utils.inline.play import stream_markup
 from HeartBeat.utils.stream.autoclear import auto_clean
 from HeartBeat.utils.thumbnails import get_thumb
 from strings import get_string
