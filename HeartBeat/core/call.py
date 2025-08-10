@@ -329,12 +329,12 @@ class Call(PyTgCalls):
                     video_flags=MediaStream.IGNORE,
                 )
             )
-        try:
-                    try:
-            await assistant.join_group_call(
-                chat_id,
-                stream,
-            )
+             try:
+                try:
+                  await assistant.join_group_call(
+                    chat_id,
+                    stream,
+                )
         except NoActiveGroupCall:
             raise AssistantErr(_["call_8"])
         except Exception as e:
