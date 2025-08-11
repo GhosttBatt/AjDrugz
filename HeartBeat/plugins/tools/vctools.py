@@ -14,7 +14,15 @@ from typing import List, Union
 from pyrogram import filters
 from HeartBeat.core.call import GhosttBatt
 from pyrogram.types import VideoChatEnded, Message
-from pytgcalls import PyTgCalls, StreamType
+from pytgcalls import PyTgCalls
+try:
+    from pytgcalls import StreamType
+except Exception:
+    try:
+        from pytgcalls.types.stream import StreamType
+    except Exception:
+        raise ImportError("StreamType import failed. Please ensure py-tgcalls==2.2.5 is installed")
+
 from pytgcalls.types.input_stream import AudioPiped, AudioVideoPiped
 from pytgcalls.exceptions import (NoActiveGroupCall, TelegramServerError, AlreadyJoinedError)
 from HeartBeat.utils.admin_filters import admin_filter
