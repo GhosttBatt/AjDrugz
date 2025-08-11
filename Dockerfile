@@ -11,7 +11,6 @@ COPY . .
 RUN pip3 install --no-cache-dir --upgrade pip \
     && pip3 install --no-cache-dir --upgrade -r requirements.txt
 #RUN pip install --no-cache-dir --upgrade py-tgcalls==1.2.9
-pip uninstall py‑tgcalls
 RUN pip install --no-cache-dir --upgrade tgcaller
 
 CMD bash start
