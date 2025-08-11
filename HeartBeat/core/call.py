@@ -1,14 +1,11 @@
 import asyncio
-import os
 from datetime import datetime, timedelta
 from typing import Union
 
 from pyrogram import Client
-from pyrogram.types import InlineKeyboardMarkup
 from ntgcalls import TelegramServerError
 
 from pytgcalls import PyTgCalls
-from pytgcalls.exceptions import GroupCallNotFoundError, AlreadyJoinedError
 from pytgcalls.types import MediaStream, AudioQuality, VideoQuality, Update
 from pytgcalls.types.stream import StreamAudioEnded
 
@@ -88,14 +85,13 @@ class Call(PyTgCalls):
 
         try:
             await assistant.join_group_call(chat_id, stream)
-        except GroupCallNotFoundError:
-            raise AssistantErr(_["call_8"])
-        except AlreadyJoinedError:
-            raise AssistantErr(_["call_9"])
-        except TelegramServerError:
-            raise AssistantErr(_["call_10"])
         except Exception as e:
-            if "phone.CreateGroupCall" in str(e).lower():
+            err = str(e).lower()
+            if "group call not found" in err or "create call first" in err:
+                raise AssistantErr(_["call_8"])
+            if "already joined" in err or "already in call" in err:
+                raise AssistantErr(_["call_9"])
+            if "phone.CreateGroupCall" in err:
                 raise AssistantErr(_["call_8"])
             raise AssistantErr(_["call_10"])
 
