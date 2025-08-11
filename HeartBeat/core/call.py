@@ -8,11 +8,26 @@ from pyrogram.types import InlineKeyboardMarkup
 from ntgcalls import TelegramServerError
 
 from pytgcalls import PyTgCalls
-from pytgcalls.exceptions import GroupCallNotFoundError, PytgcallsError
+from pytgcalls.exceptions import PytgcallsError, CallBeforeStartError, NotConnectedError
 from pytgcalls.types import MediaStream, AudioQuality, VideoQuality, Update
 from pytgcalls.types.stream import StreamAudioEnded
 
-# ... (other imports like config, db, app, etc.)
+# Import your actual app-specific modules here
+import config
+from HeartBeat import LOGGER, app
+from HeartBeat.misc import db
+from HeartBeat.utils.database import (
+    add_active_chat,
+    add_active_video_chat,
+    get_lang,
+    group_assistant,
+    is_autoend,
+    music_on,
+    remove_active_chat,
+    remove_active_video_chat,
+)
+from HeartBeat.utils.exceptions import AssistantErr
+from strings import get_string
 
 autoend = {}
 counter = {}
@@ -27,6 +42,7 @@ async def _clear_(chat_id):
 
 class Call(PyTgCalls):
     def __init__(self):
+        # Initialize 5 assistant clients from config
         self.userbots = [
             Client(
                 name=f"HeartBeat{i}",
@@ -74,12 +90,12 @@ class Call(PyTgCalls):
 
         try:
             await assistant.join_group_call(chat_id, stream)
-        except GroupCallNotFoundError:
-            raise AssistantErr(_["call_8"])
+        except CallBeforeStartError:
+            raise AssistantErr(_["call_8"])  # "No active voice chat"
         except PytgcallsError as e:
             if "already" in str(e).lower():
-                raise AssistantErr(_["call_9"])
-            raise AssistantErr(_["call_10"])
+                raise AssistantErr(_["call_9"])  # "Already in call"
+            raise AssistantErr(_["call_10"])  # General streaming error
         except TelegramServerError:
             raise AssistantErr(_["call_10"])
         except Exception as e:
@@ -90,6 +106,7 @@ class Call(PyTgCalls):
         await music_on(chat_id)
         if video:
             await add_active_video_chat(chat_id)
+
         if await is_autoend():
             counter[chat_id] = {}
             users = len(await assistant.get_participants(chat_id))
@@ -126,8 +143,6 @@ class Call(PyTgCalls):
         except Exception:
             await app.send_message(check[0]["chat_id"], text=_["call_6"])
             return
-
-        # Additional logic for thumbnail/message omitted here
 
     async def start(self):
         LOGGER(__name__).info("Starting PyTgCalls Clients...")
