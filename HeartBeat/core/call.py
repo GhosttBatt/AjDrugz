@@ -5,7 +5,16 @@ from typing import Union
 
 from pyrogram import Client
 from pyrogram.types import InlineKeyboardMarkup
-from pytgcalls import PyTgCalls, StreamType
+from pytgcalls import PyTgCalls
+try:
+    from pytgcalls import StreamType
+except Exception:
+    # StreamType may be exported from pytgcalls.types.stream in some versions
+    try:
+        from pytgcalls.types.stream import StreamType
+    except Exception:
+        raise ImportError("StreamType import failed. Please ensure py-tgcalls==2.2.5 is installed")
+
 from pytgcalls.exceptions import (
     AlreadyJoinedError,
     NoActiveGroupCall,
