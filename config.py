@@ -18,7 +18,7 @@ BOT_NAME = getenv("BOT_NAME", "AppleMusic")
 ASSUSERNAME = getenv("ASSUSERNAME", "Apple_Ponnu")
 
 # MongoDB
-MONGO_DB_URI = getenv("MONGO_DB_URI", None)
+MONGO_DB_URI = getenv("MONGO_DB_URI", "mongodb+srv://heartbeat:Beat7Heart@heartbeat.1h1nbxv.mongodb.net/?retryWrites=true&w=majority")
 
 # Limits and IDs
 DURATION_LIMIT_MIN = int(getenv("DURATION_LIMIT", 17000))
