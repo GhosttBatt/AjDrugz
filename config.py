@@ -32,7 +32,7 @@ DEEP_API = getenv("DEEP_API")
 
 # Git
 UPSTREAM_REPO = getenv("UPSTREAM_REPO", "https://github.com/GhosttBatt/HB-Drugz")
-UPSTREAM_BRANCH = getenv("UPSTREAM_BRANCH", "master")
+UPSTREAM_BRANCH = getenv("UPSTREAM_BRANCH", "main")
 GIT_TOKEN = getenv("GIT_TOKEN", None)
 
 # Support
