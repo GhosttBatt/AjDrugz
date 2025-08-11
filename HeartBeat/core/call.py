@@ -8,11 +8,15 @@ from pyrogram.types import InlineKeyboardMarkup
 from ntgcalls import TelegramServerError
 
 from pytgcalls import PyTgCalls
-from pytgcalls.exceptions import PytgcallsError, CallBeforeStartError, NotConnectedError
+from pytgcalls.exceptions import (
+    PytgcallsError,
+    CallBeforeStartError,
+    NotConnectedError,
+    GroupCallNotFoundError,
+)
 from pytgcalls.types import MediaStream, AudioQuality, VideoQuality, Update
 from pytgcalls.types.stream import StreamAudioEnded
 
-# Import your actual app-specific modules here
 import config
 from HeartBeat import LOGGER, app
 from HeartBeat.misc import db
@@ -42,7 +46,6 @@ async def _clear_(chat_id):
 
 class Call(PyTgCalls):
     def __init__(self):
-        # Initialize 5 assistant clients from config
         self.userbots = [
             Client(
                 name=f"HeartBeat{i}",
@@ -90,16 +93,16 @@ class Call(PyTgCalls):
 
         try:
             await assistant.join_group_call(chat_id, stream)
-        except CallBeforeStartError:
-            raise AssistantErr(_["call_8"])  # "No active voice chat"
+        except (CallBeforeStartError, GroupCallNotFoundError):
+            raise AssistantErr(_["call_8"])
         except PytgcallsError as e:
             if "already" in str(e).lower():
-                raise AssistantErr(_["call_9"])  # "Already in call"
-            raise AssistantErr(_["call_10"])  # General streaming error
+                raise AssistantErr(_["call_9"])
+            raise AssistantErr(_["call_10"])
         except TelegramServerError:
             raise AssistantErr(_["call_10"])
         except Exception as e:
-            if "phone.CreateGroupCall" in str(e):
+            if "phone.CreateGroupCall" in str(e).lower():
                 raise AssistantErr(_["call_8"])
 
         await add_active_chat(chat_id)
@@ -151,7 +154,6 @@ class Call(PyTgCalls):
 
     def decorators(self):
         for assistant in self.assistants:
-
             @assistant.on_stream_end()
             async def handler(client, update: Update):
                 if isinstance(update, StreamAudioEnded):
