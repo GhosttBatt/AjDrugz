@@ -14,7 +14,7 @@ from typing import List, Union
 from pyrogram import filters
 from HeartBeat.core.call import GhosttBatt
 from pyrogram.types import VideoChatEnded, Message
-from pytgcalls.types.input_streams import AudioPiped
+from pytgcalls.types.input_stream import InputAudioStream
 from pytgcalls.types.stream import StreamType
 from pytgcalls.exceptions import NoActiveGroupCall
 from HeartBeat.utils.admin_filters import admin_filter
@@ -26,9 +26,11 @@ async def strcall(client, message):
     try:
         await assistant.join_group_call(
             message.chat.id,
-            AudioPiped("./HeartBeat/assets/call.mp3"),
+            InputAudioStream("./HeartBeat/assets/call.mp3"),
             stream_type=StreamType().pulse_stream
         )
+
+
 
         text = "- Beloveds in the call 🫶 :\n\n"
         participants = await assistant.get_participants(message.chat.id)
