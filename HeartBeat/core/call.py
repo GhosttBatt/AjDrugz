@@ -8,12 +8,7 @@ from pyrogram.types import InlineKeyboardMarkup
 from ntgcalls import TelegramServerError
 
 from pytgcalls import PyTgCalls
-from pytgcalls.exceptions import (
-    PytgcallsError,
-    CallBeforeStartError,
-    NotConnectedError,
-    GroupCallNotFoundError,
-)
+from pytgcalls.exceptions import GroupCallNotFoundError, AlreadyJoinedError
 from pytgcalls.types import MediaStream, AudioQuality, VideoQuality, Update
 from pytgcalls.types.stream import StreamAudioEnded
 
@@ -93,17 +88,16 @@ class Call(PyTgCalls):
 
         try:
             await assistant.join_group_call(chat_id, stream)
-        except (CallBeforeStartError, GroupCallNotFoundError):
+        except GroupCallNotFoundError:
             raise AssistantErr(_["call_8"])
-        except PytgcallsError as e:
-            if "already" in str(e).lower():
-                raise AssistantErr(_["call_9"])
-            raise AssistantErr(_["call_10"])
+        except AlreadyJoinedError:
+            raise AssistantErr(_["call_9"])
         except TelegramServerError:
             raise AssistantErr(_["call_10"])
         except Exception as e:
             if "phone.CreateGroupCall" in str(e).lower():
                 raise AssistantErr(_["call_8"])
+            raise AssistantErr(_["call_10"])
 
         await add_active_chat(chat_id)
         await music_on(chat_id)
