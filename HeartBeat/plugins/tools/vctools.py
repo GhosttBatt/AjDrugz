@@ -30,8 +30,6 @@ async def strcall(client, message):
             stream_type=StreamType().pulse_stream
         )
 
-
-
         text = "- Beloveds in the call 🫶 :\n\n"
         participants = await assistant.get_participants(message.chat.id)
         k = 0
