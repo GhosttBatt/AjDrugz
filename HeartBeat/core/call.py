@@ -138,8 +138,8 @@ class Call(PyTgCalls):
 
     async def start(self):
         LOGGER(__name__).info("Starting PyTgCalls Clients...")
-        for assistant in self.assistants:
-            await assistant.start()
+        #for assistant in self.assistants:
+           # await assistant.start()
 
     def decorators(self):
         for assistant in self.assistants:
