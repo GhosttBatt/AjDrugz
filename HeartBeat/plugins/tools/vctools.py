@@ -14,8 +14,8 @@ from typing import List, Union
 from pyrogram import filters
 from HeartBeat.core.call import GhosttBatt
 from pyrogram.types import VideoChatEnded, Message
-from pytgcalls.types.input_stream import InputAudioStream
-from pytgcalls.types.stream import StreamType
+from pytgcalls.types.input_stream.audio import InputAudioStream
+from pytgcalls.types import StreamType
 from pytgcalls.exceptions import NoActiveGroupCall
 from HeartBeat.utils.admin_filters import admin_filter
 from config import BANNED_USERS
