@@ -12,7 +12,7 @@ from pytgcalls.exceptions import GroupCallNotFoundError, PytgcallsError
 from pytgcalls.types import MediaStream, AudioQuality, VideoQuality, Update
 from pytgcalls.types.stream import StreamAudioEnded
 
-# ... (other imports unchanged)
+# ... (other imports like config, db, app, etc.)
 
 autoend = {}
 counter = {}
@@ -27,9 +27,13 @@ async def _clear_(chat_id):
 
 class Call(PyTgCalls):
     def __init__(self):
-        # Each assistant instance
         self.userbots = [
-            Client(name=f"HeartBeat{i}", api_id=config.API_ID, api_hash=config.API_HASH, session_string=str(getattr(config, f"STRING{i}")))
+            Client(
+                name=f"HeartBeat{i}",
+                api_id=config.API_ID,
+                api_hash=config.API_HASH,
+                session_string=str(getattr(config, f"STRING{i}")),
+            )
             for i in range(1, 6)
         ]
         self.assistants = [PyTgCalls(ub, cache_duration=100) for ub in self.userbots]
@@ -39,20 +43,33 @@ class Call(PyTgCalls):
         try:
             await _clear_(chat_id)
             await assistant.leave_group_call(chat_id)
-        except:
+        except Exception:
             pass
 
-    # ... (pause, resume, mute, unpack participants remain)
-
-    async def join_call(self, chat_id: int, original_chat_id: int, link, video: Union[bool, str] = None, image: Union[bool, str] = None):
+    async def join_call(
+        self,
+        chat_id: int,
+        original_chat_id: int,
+        link,
+        video: Union[bool, str] = None,
+        image: Union[bool, str] = None,
+    ):
         assistant = await group_assistant(self, chat_id)
         language = await get_lang(chat_id)
         _ = get_string(language)
 
         stream = (
-            MediaStream(link, audio_parameters=AudioQuality.HIGH, video_parameters=VideoQuality.SD_480p)
+            MediaStream(
+                link,
+                audio_parameters=AudioQuality.HIGH,
+                video_parameters=VideoQuality.SD_480p,
+            )
             if video
-            else MediaStream(link, audio_parameters=AudioQuality.HIGH, video_flags=MediaStream.IGNORE)
+            else MediaStream(
+                link,
+                audio_parameters=AudioQuality.HIGH,
+                video_flags=MediaStream.IGNORE,
+            )
         )
 
         try:
@@ -60,7 +77,6 @@ class Call(PyTgCalls):
         except GroupCallNotFoundError:
             raise AssistantErr(_["call_8"])
         except PytgcallsError as e:
-            # Fallback: treat as "already in call" or other streaming errors.
             if "already" in str(e).lower():
                 raise AssistantErr(_["call_9"])
             raise AssistantErr(_["call_10"])
@@ -85,17 +101,24 @@ class Call(PyTgCalls):
         if not check:
             await _clear_(chat_id)
             return await client.leave_group_call(chat_id)
-        # Cleanup logic omitted for brevity...
 
         queued = check[0]["file"]
         language = await get_lang(chat_id)
         _ = get_string(language)
-
         video = str(check[0]["streamtype"]) == "video"
+
         stream = (
-            MediaStream(queued, audio_parameters=AudioQuality.HIGH, video_parameters=VideoQuality.SD_480p)
+            MediaStream(
+                queued,
+                audio_parameters=AudioQuality.HIGH,
+                video_parameters=VideoQuality.SD_480p,
+            )
             if video
-            else MediaStream(queued, audio_parameters=AudioQuality.HIGH, video_flags=MediaStream.IGNORE)
+            else MediaStream(
+                queued,
+                audio_parameters=AudioQuality.HIGH,
+                video_flags=MediaStream.IGNORE,
+            )
         )
 
         try:
@@ -104,7 +127,7 @@ class Call(PyTgCalls):
             await app.send_message(check[0]["chat_id"], text=_["call_6"])
             return
 
-        # ... (send thumbnail/message logic, same as before)
+        # Additional logic for thumbnail/message omitted here
 
     async def start(self):
         LOGGER(__name__).info("Starting PyTgCalls Clients...")
@@ -113,9 +136,11 @@ class Call(PyTgCalls):
 
     def decorators(self):
         for assistant in self.assistants:
+
             @assistant.on_stream_end()
             async def handler(client, update: Update):
                 if isinstance(update, StreamAudioEnded):
                     await self.change_stream(client, update.chat_id)
+
 
 GhosttBatt = Call()
