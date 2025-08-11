@@ -15,7 +15,7 @@ from pyrogram import filters
 from HeartBeat.core.call import GhosttBatt
 from pyrogram.types import VideoChatEnded, Message
 from pytgcalls import PyTgCalls
-from pytgcalls.types.stream.stream_type import StreamType
+from pytgcalls.types.stream import StreamType
 from pytgcalls.types.input_stream import AudioPiped, AudioVideoPiped
 from pytgcalls.exceptions import (NoActiveGroupCall, TelegramServerError, AlreadyJoinedError)
 from HeartBeat.utils.admin_filters import admin_filter
