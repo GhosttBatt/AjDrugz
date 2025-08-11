@@ -7,7 +7,6 @@ from ntgcalls import TelegramServerError
 
 from pytgcalls import PyTgCalls
 from pytgcalls.types import MediaStream, AudioQuality, VideoQuality, Update
-from pytgcalls.types.stream import StreamAudioEnded
 
 import config
 from HeartBeat import LOGGER, app
@@ -91,7 +90,7 @@ class Call(PyTgCalls):
                 raise AssistantErr(_["call_8"])
             if "already joined" in err or "already in call" in err:
                 raise AssistantErr(_["call_9"])
-            if "phone.CreateGroupCall" in err:
+            if "phone.creategroupcall" in err:
                 raise AssistantErr(_["call_8"])
             raise AssistantErr(_["call_10"])
 
@@ -146,8 +145,8 @@ class Call(PyTgCalls):
         for assistant in self.assistants:
             @assistant.on_stream_end()
             async def handler(client, update: Update):
-                if isinstance(update, StreamAudioEnded):
-                    await self.change_stream(client, update.chat_id)
+                # Simply handle the stream end without checking type
+                await self.change_stream(client, update.chat_id)
 
 
 GhosttBatt = Call()
