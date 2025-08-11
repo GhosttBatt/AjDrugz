@@ -64,4 +64,5 @@ git+https://github.com/yt-dlp/yt-dlp
 git+https://github.com/AsmSafone/SafoneAPI
 git+https://github.com/GhosttBatt/pytgcalls-HB
 #py-tgcalls==2.2.5
+ntgcalls==1.3.0
 tgcaller
