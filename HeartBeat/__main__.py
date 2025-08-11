@@ -9,8 +9,6 @@ from HeartBeat.misc import sudo
 from HeartBeat.plugins import ALL_MODULES
 from HeartBeat.utils.database import get_banned_users, get_gbanned
 from config import BANNED_USERS
-from pytgcalls.exceptions import CallBeforeStartError, PytgcallsError, GroupCallNotFoundError
-from ntgcalls import TelegramServerError  # Keep if used elsewhere
 
 async def init():
     if not any([
@@ -36,7 +34,7 @@ async def init():
 
     await app.start()
     for mod in ALL_MODULES:
-        importlib.import_module("HeartBeat.plugins" + mod)
+        importlib.import_module("HeartBeat.plugins." + mod)
     LOGGER("HeartBeat.plugins").info("Loaded all features!")
 
     await userbot.start()
@@ -46,12 +44,14 @@ async def init():
         await GhosttBatt.stream_call(
             "https://te.legra.ph/file/29f784eb49d230ab62e9e.mp4"
         )
-    except (CallBeforeStartError, GroupCallNotFoundError):
-        LOGGER("HeartBeat").error(
-            "Please start your group voice chat/channel first. HeartBeat bot stopped."
-        )
-        exit()
-    except Exception:
+    except Exception as e:
+        err = str(e).lower()
+        if "start" in err or "create call first" in err or "group call not found" in err:
+            LOGGER("HeartBeat").error(
+                "Please start your group voice chat/channel first. HeartBeat bot stopped."
+            )
+            exit()
+        # Ignore all other exceptions silently
         pass
 
     await GhosttBatt.decorators()
