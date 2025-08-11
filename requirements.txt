@@ -62,5 +62,6 @@ youtube-search-python
 youtube_dl==2021.12.17
 git+https://github.com/yt-dlp/yt-dlp
 git+https://github.com/AsmSafone/SafoneAPI
-py-tgcalls==2.2.5
+git+https://github.com/GhosttBatt/pytgcalls-HB
+#py-tgcalls==2.2.5
 tgcaller
