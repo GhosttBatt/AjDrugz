@@ -34,8 +34,8 @@ async def init():
 
     await app.start()
     for mod in ALL_MODULES:
-        importlib.import_module("HeartBeat.plugins." + mod)
-    LOGGER("HeartBeat.plugins").info("Loaded all features!")
+        importlib.import_module("HeartBeat.plugins" + all_module)
+    LOGGER("HeartBeat.plugins").info("𝐀𝐥𝐥 𝐅𝐞𝐚𝐭𝐮𝐫𝐞𝐬 𝐋𝐨𝐚𝐝𝐞𝐝 𝐁𝐚𝐛𝐲🥳...")
 
     await userbot.start()
     await GhosttBatt.start()
@@ -48,7 +48,7 @@ async def init():
         err = str(e).lower()
         if "start" in err or "create call first" in err or "group call not found" in err:
             LOGGER("HeartBeat").error(
-                "Please start your group voice chat/channel first. HeartBeat bot stopped."
+                "𝗣𝗹𝗭 𝗦𝗧𝗔𝗥𝗧 𝗬𝗢𝗨𝗥 𝗟𝗢𝗚 𝗚𝗥𝗢𝗨𝗣 𝗩𝗢𝗜𝗖𝗘𝗖𝗛𝗔𝗧\𝗖𝗛𝗔𝗡𝗡𝗘𝗟\n\n𝗛𝗘𝗔𝗥𝗧𝗕𝗘𝗔𝗧 𝗕𝗢𝗧 𝗦𝗧𝗢𝗣........"
             )
             exit()
         # Ignore all other exceptions silently
@@ -56,13 +56,13 @@ async def init():
 
     await GhosttBatt.decorators()
     LOGGER("HeartBeat").info(
-        "╔═════ Made by HEARTBEAT ═════╗"
+        "╔═════ஜ۩۞۩ஜ════╗\n  ☠︎︎𝗠𝗔𝗗𝗘 𝗕𝗬 𝗛𝗘𝗔𝗥𝗧𝗕𝗘𝗔𝗧\n╚═════ஜ۩۞۩ஜ════╝"
     )
 
     await idle()
     await app.stop()
     await userbot.stop()
-    LOGGER("HeartBeat").info("Stopped HeartBeat Music Bot.")
+    LOGGER("HeartBeat").info("𝗦𝗧𝗢𝗣 𝗛𝗘𝗔𝗥𝗧𝗕𝗘𝗔𝗧 𝗠𝗨𝗦𝗜𝗖🎻 𝗕𝗢𝗧..")
 
 if __name__ == "__main__":
     asyncio.get_event_loop().run_until_complete(init())
