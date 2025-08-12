@@ -40,6 +40,19 @@ from HeartBeat.utils.stream.autoclear import auto_clean
 from HeartBeat.utils.thumbnails import get_thumb
 from strings import get_string
 
+try:
+    from pytgcalls.exceptions import AlreadyJoinedError
+except ImportError:
+    class AlreadyJoinedError(Exception):
+        pass
+
+try:
+    from pytgcalls.exceptions import TelegramServerError
+except ImportError:
+    class TelegramServerError(Exception):
+        pass
+
+
 autoend = {}
 counter = {}
 
