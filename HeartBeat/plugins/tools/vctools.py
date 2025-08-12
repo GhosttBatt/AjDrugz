@@ -21,19 +21,6 @@ from pytgcalls.exceptions import (NoActiveGroupCall, TelegramServerError, Alread
 from HeartBeat.utils.admin_filters import admin_filter
 from config import BANNED_USERS
 
-try:
-    from pytgcalls.exceptions import AlreadyJoinedError
-except ImportError:
-    class AlreadyJoinedError(Exception):
-        pass
-
-try:
-    from pytgcalls.exceptions import TelegramServerError
-except ImportError:
-    class TelegramServerError(Exception):
-        pass
-
-
 @app.on_message(filters.command(["vcinfo"], ["/", "!"]))
 async def strcall(client, message):
     assistant = await group_assistant(GhosttBatt, message.chat.id)
@@ -250,3 +237,4 @@ async def set_volume(client, message: Message):
         )
     except Exception as e:
         await message.reply_text(f"❌ Failed to change volume.\n<b>Error:</b> {e}")
+
