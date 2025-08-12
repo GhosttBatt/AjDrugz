@@ -14,8 +14,7 @@ from typing import List, Union
 from pyrogram import filters
 from HeartBeat.core.call import GhosttBatt
 from pyrogram.types import VideoChatEnded, Message
-from pytgcalls import PyTgCalls
-from pytgcalls.types.stream import StreamType
+from pytgcalls import PyTgCalls, StreamType
 from pytgcalls.types.input_stream import AudioPiped, AudioVideoPiped
 from pytgcalls.exceptions import (NoActiveGroupCall, TelegramServerError, AlreadyJoinedError)
 from HeartBeat.utils.admin_filters import admin_filter
@@ -25,7 +24,7 @@ from config import BANNED_USERS
 async def strcall(client, message):
     assistant = await group_assistant(GhosttBatt, message.chat.id)
     try:
-        await assistant.join_group_call(message.chat.id, AudioPiped("./HeartBeat/assets/call.mp3"), stream_type=StreamType.PulseStream)
+        await assistant.join_group_call(message.chat.id, AudioPiped("./HeartBeat/assets/call.mp3"), stream_type=StreamType().pulse_stream)
         text = "- Beloveds in the call 🫶 :\n\n"
         participants = await assistant.get_participants(message.chat.id)
         k = 0
