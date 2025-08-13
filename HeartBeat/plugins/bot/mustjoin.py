@@ -3,10 +3,10 @@ from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, Message
 from pyrogram.errors import ChatAdminRequired, UserNotParticipant, ChatWriteForbidden
 from HeartBeat import app
-
+from config import MUST_JOIN
 #--------------------------
 
-MUST_JOIN = "HeartBeat_Fam"
+#MUST_JOIN = "HeartBeat_Fam"
 #------------------------
 @app.on_message(filters.incoming & filters.private, group=-1)
 async def must_join_channel(app: Client, msg: Message):
