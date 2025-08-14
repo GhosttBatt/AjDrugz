@@ -1,7 +1,7 @@
 import os
 import requests
 from random import randint
-from VIPMUSIC.utils.database import (
+from HeartBeat.utils.database import (
     add_served_chat,
     add_served_user,
     blacklisted_chats,
