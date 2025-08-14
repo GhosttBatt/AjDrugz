@@ -1,6 +1,6 @@
 import asyncio
 import datetime
-from VIPMUSIC import app
+from HeartBeat import app
 from pyrogram import Client
 from HeartBeat.utils.database import get_served_chats
 from config import START_IMG_URL, AUTO_GCAST_MSG, AUTO_GCAST, LOGGER_ID
