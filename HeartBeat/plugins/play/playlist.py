@@ -21,7 +21,7 @@ from HeartBeat.utils.decorators.language import language, languageCB
 from HeartBeat.utils.inline.playlist import (botplaylist_markup,
                                               get_playlist_markup,
                                               warning_markup)
-from HeartBeat.utils.pastebin import VIPBin
+from HeartBeat.utils.pastebin import GhosttBattBin
 import time
 import asyncio
 import yt_dlp
