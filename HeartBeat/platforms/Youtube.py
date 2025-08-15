@@ -39,10 +39,9 @@ class YouTubeAPI:
     async def exists(self, link: str, videoid: Union[bool, str] = None):
         if videoid:
             link = self.base + link
-        if re.search(self.regex, link):
+        if re.search(self.regex, link) or re.search(self.m3u8_regex, link):
             return True
-        else:
-            return False
+        return False
 
     async def url(self, message_1: Message) -> Union[str, None]:
         messages = [message_1]
@@ -120,6 +119,9 @@ class YouTubeAPI:
             link = self.base + link
         if "&" in link:
             link = link.split("&")[0]
+        # Directly return .m3u8 links
+        if re.search(self.m3u8_regex, link):
+            return 1, link
         proc = await asyncio.create_subprocess_exec(
             "yt-dlp",
             "--cookies", cookies_file,
@@ -327,6 +329,8 @@ class YouTubeAPI:
             fpath = f"downloads/{title}.mp3"
             return fpath
         elif video:
+            if re.search(self.m3u8_regex, link):
+                return link, None  # Direct streaming for m3u8
             if await is_on_off(1):
                 direct = True
                 downloaded_file = await loop.run_in_executor(None, video_dl)
