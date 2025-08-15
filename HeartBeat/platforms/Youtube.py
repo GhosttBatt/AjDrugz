@@ -1,3 +1,4 @@
+
 import asyncio
 import os
 import re
@@ -36,10 +37,25 @@ class YouTubeAPI:
         self.listbase = "https://youtube.com/playlist?list="
         self.reg = re.compile(r"\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])")
         self.m3u8_regex = re.compile(r"https?://[^\s]+\.m3u8")
+
+    # ----- helpers for .m3u8 -----
+    def _is_m3u8(self, link: str) -> bool:
+        try:
+            return bool(self.m3u8_regex.search(link) or link.strip().lower().endswith(".m3u8"))
+        except Exception:
+            return False
+
+    def _m3u8_title(self, link: str) -> str:
+        try:
+            base = os.path.basename(link.split("?")[0]) or "stream.m3u8"
+            return base
+        except Exception:
+            return "stream.m3u8"
+
     async def exists(self, link: str, videoid: Union[bool, str] = None):
         if videoid:
             link = self.base + link
-        if re.search(self.regex, link) or re.search(self.m3u8_regex, link):
+        if re.search(self.regex, link) or self._is_m3u8(link):
             return True
         else:
             return False
@@ -73,8 +89,29 @@ class YouTubeAPI:
             link = self.base + link
         if "&" in link:
             link = link.split("&")[0]
+
+        # m3u8 short-circuit
+        if self._is_m3u8(link):
+            title = self._m3u8_title(link)
+            duration_min = "None"
+            duration_sec = 0
+            thumbnail = ""
+            vidid = link
+            return title, duration_min, duration_sec, thumbnail, vidid
+
         results = VideosSearch(link, limit=1)
-        for result in (await results.next())["result"]:
+        data = await results.next()
+        res = data.get("result") or []
+        if not res:
+            # Graceful fallback if search yields nothing
+            title = "Unknown"
+            duration_min = "None"
+            duration_sec = 0
+            thumbnail = ""
+            vidid = link
+            return title, duration_min, duration_sec, thumbnail, vidid
+
+        for result in res:
             title = result["title"]
             duration_min = result["duration"]
             thumbnail = result["thumbnails"][0]["url"].split("?")[0]
@@ -90,8 +127,16 @@ class YouTubeAPI:
             link = self.base + link
         if "&" in link:
             link = link.split("&")[0]
+
+        if self._is_m3u8(link):
+            return self._m3u8_title(link)
+
         results = VideosSearch(link, limit=1)
-        for result in (await results.next())["result"]:
+        data = await results.next()
+        res = data.get("result") or []
+        if not res:
+            return "Unknown"
+        for result in res:
             title = result["title"]
         return title
 
@@ -100,8 +145,16 @@ class YouTubeAPI:
             link = self.base + link
         if "&" in link:
             link = link.split("&")[0]
+
+        if self._is_m3u8(link):
+            return "None"
+
         results = VideosSearch(link, limit=1)
-        for result in (await results.next())["result"]:
+        data = await results.next()
+        res = data.get("result") or []
+        if not res:
+            return "None"
+        for result in res:
             duration = result["duration"]
         return duration
 
@@ -110,8 +163,16 @@ class YouTubeAPI:
             link = self.base + link
         if "&" in link:
             link = link.split("&")[0]
+
+        if self._is_m3u8(link):
+            return ""
+
         results = VideosSearch(link, limit=1)
-        for result in (await results.next())["result"]:
+        data = await results.next()
+        res = data.get("result") or []
+        if not res:
+            return ""
+        for result in res:
             thumbnail = result["thumbnails"][0]["url"].split("?")[0]
         return thumbnail
 
@@ -120,8 +181,11 @@ class YouTubeAPI:
             link = self.base + link
         if "&" in link:
             link = link.split("&")[0]
-        if re.search(self.m3u8_regex, link):
+
+        # direct pass-through for m3u8
+        if self._is_m3u8(link):
             return 1, link
+
         proc = await asyncio.create_subprocess_exec(
             "yt-dlp",
             "--cookies", cookies_file,
@@ -160,8 +224,42 @@ class YouTubeAPI:
             link = self.base + link
         if "&" in link:
             link = link.split("&")[0]
+
+        if self._is_m3u8(link):
+            title = self._m3u8_title(link)
+            duration_min = "None"
+            vidid = link
+            yturl = link
+            thumbnail = ""
+            track_details = {
+                "title": title,
+                "link": yturl,
+                "vidid": vidid,
+                "duration_min": duration_min,
+                "thumb": thumbnail,
+            }
+            return track_details, vidid
+
         results = VideosSearch(link, limit=1)
-        for result in (await results.next())["result"]:
+        data = await results.next()
+        res = data.get("result") or []
+        if not res:
+            # Fallback for unexpected empty search
+            title = "Unknown"
+            duration_min = "None"
+            vidid = link
+            yturl = link
+            thumbnail = ""
+            track_details = {
+                "title": title,
+                "link": yturl,
+                "vidid": vidid,
+                "duration_min": duration_min,
+                "thumb": thumbnail,
+            }
+            return track_details, vidid
+
+        for result in res:
             title = result["title"]
             duration_min = result["duration"]
             vidid = result["id"]
@@ -181,6 +279,21 @@ class YouTubeAPI:
             link = self.base + link
         if "&" in link:
             link = link.split("&")[0]
+
+        # m3u8 simple format entry
+        if self._is_m3u8(link):
+            formats_available = [
+                {
+                    "format": "HLS (m3u8)",
+                    "filesize": None,
+                    "format_id": "hls",
+                    "ext": "m3u8",
+                    "format_note": "direct",
+                    "yturl": link,
+                }
+            ]
+            return formats_available, link
+
         ytdl_opts = {"quiet": True, "cookiefile": cookies_file}
         ydl = yt_dlp.YoutubeDL(ytdl_opts)
         with ydl:
@@ -222,8 +335,25 @@ class YouTubeAPI:
             link = self.base + link
         if "&" in link:
             link = link.split("&")[0]
+
+        if self._is_m3u8(link):
+            title = self._m3u8_title(link)
+            duration_min = "None"
+            thumbnail = ""
+            vidid = link
+            return title, duration_min, thumbnail, vidid
+
         a = VideosSearch(link, limit=10)
-        result = (await a.next()).get("result")
+        data = await a.next()
+        result = data.get("result") or []
+        if not result or query_type >= len(result):
+            # graceful fallback
+            title = "Unknown"
+            duration_min = "None"
+            thumbnail = ""
+            vidid = link
+            return title, duration_min, thumbnail, vidid
+
         title = result[query_type]["title"]
         duration_min = result[query_type]["duration"]
         vidid = result[query_type]["id"]
@@ -243,9 +373,12 @@ class YouTubeAPI:
     ) -> str:
         if videoid:
             link = self.base + link
-        loop = asyncio.get_running_loop()
-        if re.search(self.m3u8_regex, link):
+
+        # If .m3u8, just return the link for direct streaming (same behavior as -g path)
+        if self._is_m3u8(link):
             return link, None
+
+        loop = asyncio.get_running_loop()
 
         def audio_dl():
             ydl_optssx = {
@@ -295,7 +428,7 @@ class YouTubeAPI:
                 "no_warnings": True,
                 "prefer_ffmpeg": True,
                 "merge_output_format": "mp4",
-                "cookiefile": cookies_file,  # Add cookie file option here
+                "cookiefile": cookies_file,
             }
             x = yt_dlp.YoutubeDL(ydl_optssx)
             x.download([link])
@@ -317,7 +450,7 @@ class YouTubeAPI:
                         "preferredquality": "192",
                     }
                 ],
-                "cookiefile": cookies_file,  # Add cookie file option here
+                "cookiefile": cookies_file,
             }
             x = yt_dlp.YoutubeDL(ydl_optssx)
             x.download([link])
