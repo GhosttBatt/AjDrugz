@@ -329,8 +329,10 @@ class YouTubeAPI:
             fpath = f"downloads/{title}.mp3"
             return fpath
         elif video:
+            # Handle .m3u8 links directly without using title or download
             if re.search(self.m3u8_regex, link):
-                return link, None  # Direct streaming for m3u8
+                return link, None  # Direct streaming, no download
+
             if await is_on_off(1):
                 direct = True
                 downloaded_file = await loop.run_in_executor(None, video_dl)
