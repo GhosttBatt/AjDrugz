@@ -35,7 +35,7 @@ class YouTubeAPI:
         self.status = "https://www.youtube.com/oembed?url="
         self.listbase = "https://youtube.com/playlist?list="
         self.reg = re.compile(r"\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])")
-        self.m3u8_regex = re.compile(r"https?://[^\s]+\.m3u8")
+        
     async def exists(self, link: str, videoid: Union[bool, str] = None):
         if videoid:
             link = self.base + link
@@ -352,3 +352,4 @@ class YouTubeAPI:
             downloaded_file = await loop.run_in_executor(None, audio_dl)
 
         return downloaded_file, direct
+
