@@ -41,7 +41,8 @@ class YouTubeAPI:
             link = self.base + link
         if re.search(self.regex, link) or re.search(self.m3u8_regex, link):
             return True
-        return False
+        else:
+            return False
 
     async def url(self, message_1: Message) -> Union[str, None]:
         messages = [message_1]
@@ -119,7 +120,6 @@ class YouTubeAPI:
             link = self.base + link
         if "&" in link:
             link = link.split("&")[0]
-        # Directly return .m3u8 links
         if re.search(self.m3u8_regex, link):
             return 1, link
         proc = await asyncio.create_subprocess_exec(
@@ -244,6 +244,8 @@ class YouTubeAPI:
         if videoid:
             link = self.base + link
         loop = asyncio.get_running_loop()
+        if re.search(self.m3u8_regex, link):
+            return link, None
 
         def audio_dl():
             ydl_optssx = {
@@ -329,10 +331,6 @@ class YouTubeAPI:
             fpath = f"downloads/{title}.mp3"
             return fpath
         elif video:
-            # Handle .m3u8 links directly without using title or download
-            if re.search(self.m3u8_regex, link):
-                return link, None  # Direct streaming, no download
-
             if await is_on_off(1):
                 direct = True
                 downloaded_file = await loop.run_in_executor(None, video_dl)
