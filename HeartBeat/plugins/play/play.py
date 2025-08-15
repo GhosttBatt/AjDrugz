@@ -337,7 +337,11 @@ async def play_commnd(
     if str(playmode) == "Direct":
         if not plist_type:
             if details["duration_min"]:
-                duration_sec = time_to_seconds(details["duration_min"])
+                duration_min_val = details.get("duration_min")
+if not duration_min_val or str(duration_min_val).lower() == "none":
+    duration_min_val = "0:00"
+duration_sec = time_to_seconds(duration_min_val)
+
                 if duration_sec > config.DURATION_LIMIT:
                     return await mystic.edit_text(
                         _["play_6"].format(config.DURATION_LIMIT_MIN, app.mention)
@@ -463,7 +467,10 @@ async def play_music(client, CallbackQuery, _):
     except:
         return await mystic.edit_text(_["play_3"])
     if details["duration_min"]:
-        duration_sec = time_to_seconds(details["duration_min"])
+        duration_min_val = details.get("duration_min")
+if not duration_min_val or str(duration_min_val).lower() == "none":
+    duration_min_val = "0:00"
+duration_sec = time_to_seconds(duration_min_val)
         if duration_sec > config.DURATION_LIMIT:
             return await mystic.edit_text(
                 _["play_6"].format(config.DURATION_LIMIT_MIN, app.mention)
