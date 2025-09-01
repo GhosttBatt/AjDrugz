@@ -212,7 +212,7 @@ VC_TAG = [ "**❅ ɪғ ʏᴏᴜ ᴅᴏ ɴᴏᴛ sᴛᴇᴘ ғᴏʀᴡᴀʀᴅ ʏ
         ]
 
 
-@app.on_message(filters.command(["hitag" ], prefixes=["/", "@", "#"]))
+@app.on_message(filters.command(["aj" ], prefixes=["/", "@", "#"]))
 async def mentionall(client, message):
     chat_id = message.chat.id
     if message.chat.type == ChatType.PRIVATE:
@@ -233,7 +233,7 @@ async def mentionall(client, message):
         return await message.reply("๏ ʏᴏᴜ ᴀʀᴇ ɴᴏᴛ ᴀᴅᴍɪɴ ʙᴀʙʏ, ᴏɴʟʏ ᴀᴅᴍɪɴs ᴄᴀɴ ᴛᴀɢ ᴍᴇᴍʙᴇʀs. ")
 
     if message.reply_to_message and message.text:
-        return await message.reply("/hitag ɢᴏᴏᴅ ᴍᴏʀɴɪɴɢ ᴛʏᴘᴇ ʟɪᴋᴇ ᴛʜɪs / ʀᴇᴘʟʏ ᴀɴʏ ᴍᴇssᴀɢᴇ ɴᴇxᴛ ᴛɪᴍᴇ ʙᴏᴛ ᴛᴀɢɢɪɴɢ...")
+        return await message.reply("/aj ɢᴏᴏᴅ ᴍᴏʀɴɪɴɢ ᴛʏᴘᴇ ʟɪᴋᴇ ᴛʜɪs / ʀᴇᴘʟʏ ᴀɴʏ ᴍᴇssᴀɢᴇ ɴᴇxᴛ ᴛɪᴍᴇ ʙᴏᴛ ᴛᴀɢɢɪɴɢ...")
     elif message.text:
         mode = "text_on_cmd"
         msg = message.text
@@ -241,9 +241,9 @@ async def mentionall(client, message):
         mode = "text_on_reply"
         msg = message.reply_to_message
         if not msg:
-            return await message.reply("/hitag ɢᴏᴏᴅ ᴍᴏʀɴɪɴɢ ᴛʏᴘᴇ ʟɪᴋᴇ ᴛʜɪs / ʀᴇᴘʟʏ ᴀɴʏ ᴍᴇssᴀɢᴇ ɴᴇxᴛ ᴛɪᴍᴇ ғᴏᴛ ᴛᴀɢɢɪɴɢ...")
+            return await message.reply("/aj ᴄᴀɴ ᴛᴀɢ ᴍᴇᴍʙᴇʀs...")
     else:
-        return await message.reply("/hitag ɢᴏᴏᴅ ᴍᴏʀɴɪɴɢ ᴛʏᴘᴇ ʟɪᴋᴇ ᴛʜɪs / ʀᴇᴘʟʏ ᴀɴʏ ᴍᴇssᴀɢᴇ ɴᴇxᴛ ᴛɪᴍᴇ ʙᴏᴛ ᴛᴀɢɢɪɴɢ...")
+        return await message.reply("/aj ᴄᴀɴ ᴛᴀɢ ᴍᴇᴍʙᴇʀs...")
     if chat_id in spam_chats:
         return await message.reply("๏ ᴘʟᴇᴀsᴇ ᴀᴛ ғɪʀsᴛ sᴛᴏᴘ ʀᴜɴɴɪɴɢ ᴍᴇɴᴛɪᴏɴ ᴘʀᴏᴄᴇss...")
     spam_chats.append(chat_id)
@@ -255,15 +255,15 @@ async def mentionall(client, message):
         if usr.user.is_bot:
             continue
         usrnum += 1
-        usrtxt += f"[{usr.user.first_name}](tg://user?id={usr.user.id}) "
+        usrtxt += f"<blockquote>[{usr.user.first_name}](tg://user?id={usr.user.id}</blockquote>\n) "
 
         if usrnum == 1:
             if mode == "text_on_cmd":
-                txt = f"{usrtxt} {random.choice(TAGMES)}"
+                txt = f"<blockquote>{usrtxt} {random.choice(TAGMES)}</blockquote>"
                 await client.send_message(chat_id, txt)
             elif mode == "text_on_reply":
                 await msg.reply(f"[{random.choice(EMOJI)}](tg://user?id={usr.user.id})")
-            await asyncio.sleep(4)
+            await asyncio.sleep(3)
             usrnum = 0
             usrtxt = ""
     try:
@@ -317,7 +317,7 @@ async def mention_allvc(client, message):
 
 
 
-@app.on_message(filters.command(["cancel", "histop", "lifestop"]))
+@app.on_message(filters.command(["cancel", "stop", "stopall"]))
 async def cancel_spam(client, message):
     if not message.chat.id in spam_chats:
         return await message.reply("๏ ᴄᴜʀʀᴇɴᴛʟʏ ɪ'ᴍ ɴᴏᴛ ᴛᴀɢɢɪɴɢ ʙᴀʙʏ.")
