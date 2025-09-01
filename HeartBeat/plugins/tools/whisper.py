@@ -111,7 +111,7 @@ async def in_help():
         InlineQueryResultArticle(
             title="💒 Whisper",
             description=f"@Thedakkidaikathaval_bot [USERNAME | ID] [TEXT]",
-            input_message_content=InputTextMessageContent(f"**📍Usage:**\n\n@Thedakkidaikathaval_bot (Target Username or ID) (Your Message).\n\n**Example:**\n@Thedakkidaikathaval_bot @username I Wanna Phuck You"),
+            input_message_content=InputTextMessageContent(f"**📍Usage:**\n\n@botusername (Target Username or ID) (Your Message).\n\n**Example:**\n@botusername @username I Wanna Love You"),
             thumb_url="https://te.legra.ph/file/3eec679156a393c6a1053.jpg",
             reply_markup=switch_btn
         )
