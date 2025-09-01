@@ -8,23 +8,23 @@ from pyrogram import filters
 load_dotenv()
 
 # Required credentials
-API_ID = int(getenv("API_ID", "10284859"))
-API_HASH = getenv("API_HASH", "b0ad58eb8b845ba0003e0d9ce5fc2196")
-BOT_TOKEN = getenv("BOT_TOKEN", "8204653134:AAFLhxAIWEV937aucjUQP2T32W6DZsy8-QE")
+API_ID = int(getenv("API_ID", "26204186"))
+API_HASH = getenv("API_HASH", "c277a7f93583f68d0fdfdcb68f5fc6c0")
+BOT_TOKEN = getenv("BOT_TOKEN", "8209706073:AAEto_JFyBRJ7EhF2Jx3LzcH0MN6MOMpUC8")
 
 # Bot and owner info
-OWNER_USERNAME = getenv("OWNER_USERNAME", "RajeshRakis")
-BOT_USERNAME = getenv("BOT_USERNAME", "Thedakkidaikathaval_bot")
-BOT_NAME = getenv("BOT_NAME", "AppleMusic")
-ASSUSERNAME = getenv("ASSUSERNAME", "Apple_Ponnu")
+OWNER_USERNAME = getenv("OWNER_USERNAME", "li_xiaoyu_fan")
+BOT_USERNAME = getenv("BOT_USERNAME", "Vc_music_x_bot")
+BOT_NAME = getenv("BOT_NAME", "AjBot1")
+ASSUSERNAME = getenv("ASSUSERNAME", "music_assist")
 
 # MongoDB
-MONGO_DB_URI = getenv("MONGO_DB_URI", "mongodb+srv://heartbeat:Beat7Heart@heartbeat.1h1nbxv.mongodb.net/?retryWrites=true&w=majority")
+MONGO_DB_URI = getenv("MONGO_DB_URI", "mongodb+srv://ghosttbatt:Ghost2021@ghosttbatt.ocbirts.mongodb.net/?retryWrites=true&w=majority")
 
 # Limits and IDs
 DURATION_LIMIT_MIN = int(getenv("DURATION_LIMIT", 17000))
-LOGGER_ID = int(getenv("LOGGER_ID", "-1001735663878"))
-OWNER_ID = int(getenv("OWNER_ID", "1281282633"))
+LOGGER_ID = int(getenv("LOGGER_ID", "-1002275616383"))
+OWNER_ID = int(getenv("OWNER_ID", "7597135577"))
 
 # Heroku
 HEROKU_APP_NAME = getenv("HEROKU_APP_NAME")
@@ -40,9 +40,9 @@ GIT_TOKEN = getenv("GIT_TOKEN", None)
 SERVER_PLAYLIST_LIMIT = int(getenv("SERVER_PLAYLIST_LIMIT", "3000"))
 
 # Support
-SUPPORT_CHANNEL = getenv("SUPPORT_CHANNEL", "https://t.me/HeartBeat_Offi")
-SUPPORT_CHAT = getenv("SUPPORT_CHAT", "https://t.me/HeartBeat_Fam")
-MUST_JOIN= getenv("MUST_JOIN", "HeartBeat_Fam")
+SUPPORT_CHANNEL = getenv("SUPPORT_CHANNEL", "https://t.me/aj_bioo")
+SUPPORT_CHAT = getenv("SUPPORT_CHAT", "https://t.me/ARORA_X_MIRACHLE_NETWORK")
+MUST_JOIN= getenv("MUST_JOIN", "aj_bioo")
 
 # Assistant settings
 AUTO_LEAVING_ASSISTANT = getenv("AUTO_LEAVING_ASSISTANT", "False")
@@ -53,14 +53,14 @@ SONG_DOWNLOAD_DURATION = int(getenv("SONG_DOWNLOAD_DURATION", "9999999"))
 SONG_DOWNLOAD_DURATION_LIMIT = int(getenv("SONG_DOWNLOAD_DURATION_LIMIT", "9999999"))
 
 #Auto Gcast/Broadcast Handler (True = broadcast on , False = broadcast off During Hosting, Dont Do anything here.)
-AUTO_GCAST = os.getenv("AUTO_GCAST","True")
+AUTO_GCAST = os.getenv("AUTO_GCAST","False")
 #Auto Broadcast Message That You Want Use In Auto Broadcast In All Groups.
 AUTO_GCAST_MSG = getenv("AUTO_GCAST_MSG", None)
 
 
 # Spotify
-SPOTIFY_CLIENT_ID = getenv("SPOTIFY_CLIENT_ID", "1c21247d714244ddbb09925dac565aed")
-SPOTIFY_CLIENT_SECRET = getenv("SPOTIFY_CLIENT_SECRET", "709e1a2969664491b58200860623ef19")
+SPOTIFY_CLIENT_ID = getenv("SPOTIFY_CLIENT_ID", "")
+SPOTIFY_CLIENT_SECRET = getenv("SPOTIFY_CLIENT_SECRET", "")
 
 # Playlist limit
 PLAYLIST_FETCH_LIMIT = int(getenv("PLAYLIST_FETCH_LIMIT", 2500))
@@ -70,7 +70,7 @@ TG_AUDIO_FILESIZE_LIMIT = int(getenv("TG_AUDIO_FILESIZE_LIMIT", "5242880000"))
 TG_VIDEO_FILESIZE_LIMIT = int(getenv("TG_VIDEO_FILESIZE_LIMIT", "5242880000"))
 
 # Session strings
-STRING1 = getenv("STRING_SESSION", "BQHEb5wAFFtT8EiPTcf_FUyM_D0KpXmLS3Yb0hLIY4NiJDF6Z_7_u1DOAYiMCbmQvGqzMjlTF50EUMUXGJfocc59jomNpyXZ6fYjZnuF-iGi3sNfoaV41whX5elyzxJGF9crlqsyexR6Uzeayip5wki6sHuxBQ2n6ZaOvFpjJAfDQ9CaLDTGUQsdTHGZfI0XK1zzLvik0goIClX2svPKqFGBxWYHoudw21XdUTJmG_5TvqA52wH2ndpFCkbYW707HsAY1UWW_rhNfwMsVCXo24-CX1ro0WHhyIi1zxYmPDenuVJJrFjKO_innvhdaW1LwKEHLoQBr5ulPlO9a5CC-XQuP62htAAAAAH2CAwvAA")
+STRING1 = getenv("STRING_SESSION", "BQGP2BoASSaaVOD0OyvGD4Gs4iAjQXoMoRrFZAKHYzdAnArwiWvPEhgQ5G5jro5_lIfr9OgINxOamQGi8zNzNsvwWHJQPLVK_H9rmIzQE439QUdKgKcbNml_bf5xfZqWidfjPTLg0DsT3W5MqhdU0mySOJRoj5v3a2siEQ-jEPOqiL7FlOtbTeXS69n5bpTaMfT0AN1CnZLSHuP931Zn0hdnn13qve9oiRYFFN_ZPD_HPmhil7An0GAqb5T1ktBzTzT5gAY4D4hG2jsqM-M2SE4OirL5JgiPNkkYBRTdB7y1dxwLXjxXMBh8l1HE7UweOmrv1mTXfHTXf75CfqqFg91Oo80EBgAAAAHeMccZAA")
 STRING2 = getenv("STRING_SESSION2", None)
 STRING3 = getenv("STRING_SESSION3", None)
 STRING4 = getenv("STRING_SESSION4", None)
@@ -89,10 +89,10 @@ confirmer = {}
 DEBUG_IGNORE_LOG =True
 
 # Image URLs
-START_IMG_URL = getenv("START_IMG_URL", "https://files.catbox.moe/tv2iyw.jpg")
-PING_IMG_URL = getenv("PING_IMG_URL", "https://telegra.ph/file/7bb907999ea7156227283.jpg")
+START_IMG_URL = getenv("START_IMG_URL", "https://files.catbox.moe/qnx4wo.jpg")
+PING_IMG_URL = getenv("PING_IMG_URL", "https://files.catbox.moe/qnx4wo.jpg")
 PLAYLIST_IMG_URL = "https://telegra.ph/file/d723f4c80da157fca1678.jpg"
-STATS_IMG_URL = "https://files.catbox.moe/tv2iyw.jpg"
+STATS_IMG_URL = "https://files.catbox.moe/qnx4wo.jpg"
 TELEGRAM_AUDIO_URL = "https://telegra.ph/file/13afb9ee5c5da17930f1e.png"
 TELEGRAM_VIDEO_URL = "https://telegra.ph/file/13afb9ee5c5da17930f1e.png"
 STREAM_IMG_URL = "https://telegra.ph/file/03efec694e41e891b29dc.jpg"
