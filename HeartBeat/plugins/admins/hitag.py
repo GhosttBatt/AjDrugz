@@ -212,7 +212,7 @@ VC_TAG = [ "**❅ ɪғ ʏᴏᴜ ᴅᴏ ɴᴏᴛ sᴛᴇᴘ ғᴏʀᴡᴀʀᴅ ʏ
         ]
 
 
-@app.on_message(filters.command(["aj" ], prefixes=["/", "@", "#"]))
+@app.on_message(filters.command(["hitag" ], prefixes=["/", "@", "#"]))
 async def mentionall(client, message):
     chat_id = message.chat.id
     if message.chat.type == ChatType.PRIVATE:
@@ -233,7 +233,7 @@ async def mentionall(client, message):
         return await message.reply("๏ ʏᴏᴜ ᴀʀᴇ ɴᴏᴛ ᴀᴅᴍɪɴ ʙᴀʙʏ, ᴏɴʟʏ ᴀᴅᴍɪɴs ᴄᴀɴ ᴛᴀɢ ᴍᴇᴍʙᴇʀs. ")
 
     if message.reply_to_message and message.text:
-        return await message.reply("/aj ɢᴏᴏᴅ ᴍᴏʀɴɪɴɢ ᴛʏᴘᴇ ʟɪᴋᴇ ᴛʜɪs / ʀᴇᴘʟʏ ᴀɴʏ ᴍᴇssᴀɢᴇ ɴᴇxᴛ ᴛɪᴍᴇ ʙᴏᴛ ᴛᴀɢɢɪɴɢ...")
+        return await message.reply("/hitag ɢᴏᴏᴅ ᴍᴏʀɴɪɴɢ ᴛʏᴘᴇ ʟɪᴋᴇ ᴛʜɪs / ʀᴇᴘʟʏ ᴀɴʏ ᴍᴇssᴀɢᴇ ɴᴇxᴛ ᴛɪᴍᴇ ʙᴏᴛ ᴛᴀɢɢɪɴɢ...")
     elif message.text:
         mode = "text_on_cmd"
         msg = message.text
@@ -241,9 +241,9 @@ async def mentionall(client, message):
         mode = "text_on_reply"
         msg = message.reply_to_message
         if not msg:
-            return await message.reply("/aj ᴄᴀɴ ᴛᴀɢ ᴍᴇᴍʙᴇʀs...")
+            return await message.reply("/hitag ᴄᴀɴ ᴛᴀɢ ᴍᴇᴍʙᴇʀs...")
     else:
-        return await message.reply("/aj ᴄᴀɴ ᴛᴀɢ ᴍᴇᴍʙᴇʀs...")
+        return await message.reply("/hitag ᴄᴀɴ ᴛᴀɢ ᴍᴇᴍʙᴇʀs...")
     if chat_id in spam_chats:
         return await message.reply("๏ ᴘʟᴇᴀsᴇ ᴀᴛ ғɪʀsᴛ sᴛᴏᴘ ʀᴜɴɴɪɴɢ ᴍᴇɴᴛɪᴏɴ ᴘʀᴏᴄᴇss...")
     spam_chats.append(chat_id)
