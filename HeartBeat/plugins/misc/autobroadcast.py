@@ -8,21 +8,14 @@ from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 AUTO_GCASTS = f"{AUTO_GCAST}" if AUTO_GCAST else False
 
-START_IMG_URLS = "https://graph.org/file/ffdb1be822436121cf5fd.png"
+START_IMG_URLS = "https://files.catbox.moe/1ity25.jpg"
 
-MESSAGES = f"""<blockquote>✰ ᴍᴜsɪᴄ ✰ᴍᴇɴᴛɪᴏɴ ✰ᴍᴀɴᴀɢᴇᴍᴇɴᴛ</blockquote>
-
-𝘽𝙊𝙏 𝙁𝙀𝘼𝙏𝙐𝙍𝙀𝙎: (•‌ᴗ•‌)و
-𝙄𝙢 𝙪𝙣𝙡𝙤𝙘𝙠𝙚𝙙 𝙢𝙮 𝙎𝙩𝙪𝙣𝙣𝙞𝙣𝙜 𝙋𝙧𝙤 𝙁𝙪𝙩𝙪𝙧𝙚𝙨 𝙞𝙣𝙨𝙞𝙙𝙚 𝙢𝙚:
-<blockquote>⍟𝗌ᴜᴘᴘᴏʀᴛ ʏᴏᴜᴛᴜʙᴇ ʟɪɴᴋ𝗌 ⍟ ᴡᴇʟᴄᴏᴍᴇ ɴᴏᴛɪᴄᴇ ⍟ ᴠᴄ-ɪɴᴠɪᴛᴇ ᴄᴀʀᴅ ⍟ ᴘʟᴀʏ ᴡɪᴛʜᴏᴜᴛ 𝗌ʟᴀ𝗌ʜ</blockquote>
-😻ᴘʀᴏ ғᴇᴀᴛᴜʀᴇ𝗌 ᴜɴʟᴏᴄᴋᴇᴅ🥳
-💕Sᴜᴘᴘᴏʀᴛ Mᴀɴᴀɢᴇᴍᴇɴᴛ Bᴏᴛ Fᴇᴀᴛᴜʀᴇ𝗌🦋
-𝑁𝑒𝑡𝑤𝑜𝑟𝑘 - [𝞖𝘌𝘈𝘙𝘛𝂬𓏲ࣹ᷼𝄢𝂬𝞑𝘌𝘈𝘛▹ᴴᴮ⸳⸳ⷮ⸳⸳ⷨ](https://t.me/HeartBeat_Offi) 😎✨"""
+MESSAGES = f"""<blockquote>ᴡᴇʟᴄᴏᴍᴇ,  \n\n◆ ɪ'ᴍ ᴀ ᴛᴇʟᴇɢʀᴀᴍ ꜱᴛʀᴇᴀᴍɪɴɢ ʙᴏᴛ ᴡɪᴛʜ ꜱᴏᴍᴇ ᴜꜱᴇꜰᴜʟ ғᴇᴀᴛᴜʀᴇ\n◆ ᴜʟᴛʀᴀ ғᴀsᴛ ᴠᴄ ᴘʟᴀʏᴇʀ ꜰᴇᴀᴛᴜʀᴇꜱ.</blockquote> \n<blockquote>✨ ꜰᴇᴀᴛᴜʀᴇꜱ ⚡️\n◆ ʙᴏᴛ ғᴏʀ ᴛᴇʟᴇɢʀᴀᴍ ɢʀᴏᴜᴘs.\n◆ Sᴜᴘᴇʀғᴀsᴛ ʟᴀɢ Fʀᴇᴇ ᴘʟᴀʏᴇʀ.\n◆ ʏᴏᴜ ᴄᴀɴ ᴘʟᴀʏ ᴍᴜꜱɪᴄ + ᴠɪᴅᴇᴏ.\n◆ ʟɪᴠᴇ ꜱᴛʀᴇᴀᴍɪɴɢ.\n◆ ɴᴏ ᴘʀᴏᴍᴏ.\n◆ ʙᴇꜱᴛ ꜱᴏᴜɴᴅ Qᴜᴀʟɪᴛʏ.\n◆ 24×7 ʏᴏᴜ ᴄᴀɴ ᴘʟᴀʏ ᴍᴜꜱɪᴄ.\n◆ ᴀᴅᴅ ᴛʜɪꜱ ʙᴏᴛ ɪɴ ʏᴏᴜʀ ɢʀᴏᴜᴘ ᴀɴᴅ ᴍᴀᴋᴇ ɪᴛ ᴀᴅᴍɪɴ ᴀɴᴅ ᴇɴᴊᴏʏ ᴍᴜꜱɪᴄ 🎵.</blockquote>"""
 
 BUTTONS = InlineKeyboardMarkup(
     [
         [
-            InlineKeyboardButton("𝅗ـﮩ٨ـ𝅽𝅾𓆩𝐇𖽞𖽖֯֟፝͢͡𖽸𖾓𝂬𓏲ࣹ᷼𝄢𝂬𝐁𖽞֟֠֯፝͢͡𖽖𖾓𓆪ﮩ٨ـ𝅽𝅾‐𝅘▹ᴴᴮ⸳⸳ⷮ⸳⸳ⷨ", url=f"https://t.me/HeartBeat_Fam")
+            InlineKeyboardButton("✙ ʌᴅᴅ ϻє ɪη ʏσυʀ ɢʀσυᴘ ✙", url=f"https://t.me/{app.username}?startgroup=true")
         ]
     ]
 )
@@ -63,8 +56,8 @@ async def continuous_broadcast():
             except Exception as e:
                 pass
 
-        # Wait for 100000 seconds before next broadcast
-        await asyncio.sleep(100000)
+        # Wait for 12hr  before next broadcast
+        await asyncio.sleep(720)
 
 # Start the continuous broadcast loop if AUTO_GCAST is True
 if AUTO_GCAST:  
