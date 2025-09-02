@@ -4,7 +4,7 @@ import random
 import requests
 from HeartBeat import app 
 
-SUPPORT_CHAT = "HeartBeat_Fam"
+SUPPORT_CHAT = "aj_bioo"
 
 @app.on_message(filters.command("wish"))
 async def wish(_, m):
@@ -43,7 +43,7 @@ async def cute(_, message):
 
     mention = f"[{user_name}](tg://user?id={str(user_id)})"
     mm = random.randint(1, 100)
-    CUTE = f"🍑 {mention} {mm}% ᴄᴜᴛᴇ ʙᴀʙʏ🦋"
+    CUTE = f"🎉 {mention} {mm}% ᴄᴜᴛᴇ ʙᴀʙʏ🦋"
 
     await app.send_document(
         chat_id=message.chat.id,
