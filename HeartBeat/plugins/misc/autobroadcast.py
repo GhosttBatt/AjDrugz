@@ -56,8 +56,8 @@ async def continuous_broadcast():
             except Exception as e:
                 pass
 
-        # Wait for 12hr  before next broadcast
-        await asyncio.sleep(720)
+        # Wait for 24hr  before next broadcast
+        await asyncio.sleep(86400)
 
 # Start the continuous broadcast loop if AUTO_GCAST is True
 if AUTO_GCAST:  
