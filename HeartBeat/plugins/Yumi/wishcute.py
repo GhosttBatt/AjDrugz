@@ -3,8 +3,9 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 import random
 import requests
 from HeartBeat import app 
+from config import SUPPORT_CHAT
 
-SUPPORT_CHAT = "aj_bioo"
+#SUPPORT_CHAT = "aj_bioo"
 
 @app.on_message(filters.command("wish"))
 async def wish(_, m):
