@@ -78,10 +78,14 @@ HUGGY = [
 
 # Kiss GIFs
 KISSY = [
-    "https://media.tenor.com/9bK6gJ7M8o8AAAAC/anime-kiss.gif",
-    "https://media.tenor.com/YdU3jKJQXfAAAAAC/kiss-anime.gif",
-    "https://media.tenor.com/VcS-5mJ4JtoAAAAC/kiss.gif",
-    "https://media.tenor.com/lBqC7V2zS6AAAAAC/couple-anime.gif",
+          "https://files.catbox.moe/3dz99c.mp4",
+          "https://files.catbox.moe/0xjlnb.mp4",
+          "https://files.catbox.moe/7x9ub5.mp4",
+          "https://files.catbox.moe/aeampz.mp4",
+          "https://files.catbox.moe/f5rzsr.mp4",
+          "https://files.catbox.moe/nu1vyw.mp4",
+          "https://files.catbox.moe/tvuaj0.mp4",
+          "https://files.catbox.moe/gswvjs.mp4",
 ]
 
 
