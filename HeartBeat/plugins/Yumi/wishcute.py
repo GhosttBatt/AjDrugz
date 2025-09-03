@@ -54,6 +54,73 @@ async def cute(_, message):
         reply_to_message_id=message.reply_to_message.message_id if message.reply_to_message else None,
     )
 
+#----------HUG & KISS------------
+
+# Hug GIFs
+HUGGY = [
+    "https://64.media.tumblr.com/d701f53eb5681e87a957a547980371d2/tumblr_nbjmdrQyje1qa94xto1_500.gif",
+    "https://64.media.tumblr.com/d701f53eb5681e87a957a5ywu7980371d2/tumblr_nbjmdrQyje1qa94xto1_500.gif",
+    "https://media.tenor.com/3Z9xwJ7XxJgAAAAC/anime-hug.gif",
+    "https://media.tenor.com/Xb9L0Wb2X5oAAAAC/hug-anime.gif",
+]
+
+# Kiss GIFs
+KISSY = [
+    "https://media.tenor.com/9bK6gJ7M8o8AAAAC/anime-kiss.gif",
+    "https://media.tenor.com/YdU3jKJQXfAAAAAC/kiss-anime.gif",
+    "https://media.tenor.com/VcS-5mJ4JtoAAAAC/kiss.gif",
+    "https://media.tenor.com/lBqC7V2zS6AAAAAC/couple-anime.gif",
+]
+
+
+# Hug Command
+@app.on_message(filters.command("hug"))
+async def hug(_, m):
+    if len(m.command) < 2:
+        await m.reply("ᴀᴅᴅ ʜᴜɢ ᴍᴇꜱꜱᴀɢᴇ 🫂✨!")
+        return 
+
+    url = random.choice(HUGGY)  # random hug gif
+    text = m.text.split(None, 1)[1]
+    hug_count = random.randint(1, 100)
+
+    hug_msg = f"🤗 ʙᴀʙʏ {m.from_user.first_name}\n"
+    hug_msg += f"🫂 ᴡᴀɴᴛ ᴛᴏ ᴋɪꜱꜱ {text}\n"
+    hug_msg += f"✨ᴍᴏʀᴇ... ❤️ʟɪᴋᴇ ᴛʜɪꜱ...\n ᴘᴏᴡᴇʀ ʟᴇᴠᴇʟ: {hug_count}% \n\n ᴄᴀɴ ᴡᴇ ᴛʀʏ... 🙈ʜᴏɴᴇʏ"
+
+    await app.send_animation(
+        chat_id=m.chat.id,
+        animation=url,
+        caption=hug_msg,
+        reply_markup=InlineKeyboardMarkup(BUTTON)
+    )
+
+
+# Kiss Command
+@app.on_message(filters.command("kiss"))
+async def kiss(_, m):
+    if len(m.command) < 2:
+        await m.reply("ᴀᴅᴅ ᴋɪss ᴍᴇꜱꜱᴀɢᴇ 😘✨!")
+        return 
+
+    url = random.choice(KISSY)  # random kiss gif
+    text = m.text.split(None, 1)[1]
+    kiss_count = random.randint(1, 100)
+
+    kiss_msg = f"😘 ʙᴀʙʏ {m.from_user.first_name}\n"
+    kiss_msg += f"💋 ᴡᴀɴᴛ ᴛᴏ ᴋɪꜱꜱ {text}\n"
+    kiss_msg += f"✨ ᴍᴏʀᴇ... ❤️ʟɪᴋᴇ ᴛʜɪꜱ...\n ꜱᴡᴇᴇᴛɴᴇꜱꜱ ʟᴇᴠᴇʟ: {kiss_count}% \n\n ᴄᴀɴ ᴡᴇ ᴛʀʏ... 🙈ʜᴏɴᴇʏ"
+
+    await app.send_animation(
+        chat_id=m.chat.id,
+        animation=url,
+        caption=kiss_msg,
+        reply_markup=InlineKeyboardMarkup(BUTTON)
+    )
+
+
+#--------------HUG & KISS -------
+
     
 help_text = """
 » ᴡʜᴀᴛ ɪꜱ ᴛʜɪꜱ (ᴡɪꜱʜ):
