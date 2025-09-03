@@ -74,7 +74,7 @@ async def cute(_, message):
 
     await app.send_document(
         chat_id=message.chat.id,
-        document=HUGGY,
+        document=random.choice(HUGGY),
         caption=HUG,
         reply_markup=InlineKeyboardMarkup(BUTTON),
         reply_to_message_id=message.reply_to_message.message_id if message.reply_to_message else None,
@@ -101,7 +101,7 @@ async def cute(_, message):
 
     await app.send_document(
         chat_id=message.chat.id,
-        document=KISSY,
+        document=random.choice(KISSY),
         caption=KISS,
         reply_markup=InlineKeyboardMarkup(BUTTON),
         reply_to_message_id=message.reply_to_message.message_id if message.reply_to_message else None,
