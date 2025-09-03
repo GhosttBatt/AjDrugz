@@ -54,60 +54,6 @@ async def cute(_, message):
         reply_to_message_id=message.reply_to_message.message_id if message.reply_to_message else None,
     )
 
-
-HUGGY = [
-         "https://64.media.tumblr.com/d701f53eb5681e87a957a547980371d2/tumblr_nbjmdrQyje1qa94xto1_500.gif",
-
-]
-
-@app.on_message(filters.command("hug"))
-async def cute(_, message):
-    if not message.reply_to_message:
-        user_id = message.from_user.id
-        user_name = message.from_user.first_name
-    else:
-        user_id = message.reply_to_message.from_user.id
-        user_name = message.reply_to_message.from_user.first_name
-
-    mentn = f"[{user_name}](tg://user?id={str(user_id)})"
-    hh = random.randint(1, 100)
-    HUG = f"🎉 {mentn} {hh}% ᴄᴜᴛᴇ ʙᴀʙʏ🦋"
-
-    await app.send_document(
-        chat_id=message.chat.id,
-        document=random.choice(HUGGY),
-        caption=HUG,
-        reply_markup=InlineKeyboardMarkup(BUTTON),
-        reply_to_message_id=message.reply_to_message.message_id if message.reply_to_message else None,
-    )
-
-
-KISSY = [
-         "https://64.media.tumblr.com/d701f53eb5681e87a957a547980371d2/tumblr_nbjmdrQyje1qa94xto1_500.gif",
-
-]
-
-@app.on_message(filters.command("kiss"))
-async def cute(_, message):
-    if not message.reply_to_message:
-        user_id = message.from_user.id
-        user_name = message.from_user.first_name
-    else:
-        user_id = message.reply_to_message.from_user.id
-        user_name = message.reply_to_message.from_user.first_name
-
-    men = f"[{user_name}](tg://user?id={str(user_id)})"
-    kk = random.randint(1, 100)
-    KISS = f"🎉 {men} {kk}% ᴄᴜᴛᴇ ʙᴀʙʏ🦋"
-
-    await app.send_document(
-        chat_id=message.chat.id,
-        document=random.choice(KISSY),
-        caption=KISS,
-        reply_markup=InlineKeyboardMarkup(BUTTON),
-        reply_to_message_id=message.reply_to_message.message_id if message.reply_to_message else None,
-    )
-    
     
 help_text = """
 » ᴡʜᴀᴛ ɪꜱ ᴛʜɪꜱ (ᴡɪꜱʜ):
