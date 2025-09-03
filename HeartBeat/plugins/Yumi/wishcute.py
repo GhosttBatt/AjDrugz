@@ -58,10 +58,22 @@ async def cute(_, message):
 
 # Hug GIFs
 HUGGY = [
-    "https://64.media.tumblr.com/d701f53eb5681e87a957a547980371d2/tumblr_nbjmdrQyje1qa94xto1_500.gif",
-    "https://64.media.tumblr.com/d701f53eb5681e87a957a5ywu7980371d2/tumblr_nbjmdrQyje1qa94xto1_500.gif",
-    "https://media.tenor.com/3Z9xwJ7XxJgAAAAC/anime-hug.gif",
-    "https://media.tenor.com/Xb9L0Wb2X5oAAAAC/hug-anime.gif",
+          "https://files.catbox.moe/flxsp0.mp4",
+          "https://files.catbox.moe/d5hzq0.mp4",
+          "https://files.catbox.moe/fkkrno.mp4",
+          "https://files.catbox.moe/eawvmb.mp4",
+          "https://files.catbox.moe/hu0cy1.mp4",
+          "https://files.catbox.moe/zyviqk.mp4",
+          "https://files.catbox.moe/tez5qn.mp4",
+          "https://files.catbox.moe/4dhxpv.mp4",
+          "https://files.catbox.moe/ch8uc1.mp4",
+          "https://files.catbox.moe/nc57qv.mp4",
+          "https://files.catbox.moe/in9fkk.mp4",
+          "https://files.catbox.moe/oo1phf.mp4",
+          "https://files.catbox.moe/1img0p.mp4",
+          "https://files.catbox.moe/x9hh19.mp4",
+          "https://files.catbox.moe/fk1eqp.mp4",
+          "https://files.catbox.moe/m3hqpz.mp4",
 ]
 
 # Kiss GIFs
