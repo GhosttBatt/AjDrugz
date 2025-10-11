@@ -40,8 +40,8 @@ GIT_TOKEN = getenv("GIT_TOKEN", None)
 SERVER_PLAYLIST_LIMIT = int(getenv("SERVER_PLAYLIST_LIMIT", "3000"))
 
 # Support
-SUPPORT_CHANNEL = getenv("SUPPORT_CHANNEL", "https://t.me/aj_bioo")
-SUPPORT_CHAT = getenv("SUPPORT_CHAT", "https://t.me/ARORA_X_MIRACHLE_NETWORK")
+SUPPORT_CHANNEL = getenv("SUPPORT_CHANNEL", "https://t.me/MIB_EDITS")
+SUPPORT_CHAT = getenv("SUPPORT_CHAT", "https://t.me/MIB_NET_FEDS")
 MUST_JOIN= getenv("MUST_JOIN", "aj_bioo")
 
 # Assistant settings
