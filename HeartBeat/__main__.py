@@ -1,5 +1,8 @@
 import asyncio
 import importlib
+import threading
+import requests
+from flask import Flask
 
 from pyrogram import idle
 from pytgcalls.exceptions import NoActiveGroupCall
@@ -12,8 +15,40 @@ from HeartBeat.plugins import ALL_MODULES
 from HeartBeat.utils.database import get_banned_users, get_gbanned
 from config import BANNED_USERS
 
+# ─────────────────────────────────────────────
+# KEEP-ALIVE SECTION (Flask + Auto-Ping)
+# ─────────────────────────────────────────────
+
+PING_URL = "https://ajdrugz.onrender.com"  # ✅ Your Render URL
+
+flask_app = Flask(__name__)
+
+@flask_app.route("/")
+def home():
+    return "Bot is alive!"
+
+def run_flask():
+    flask_app.run(host="0.0.0.0", port=8080)
+
+def start_flask():
+    thread = threading.Thread(target=run_flask)
+    thread.daemon = True
+    thread.start()
+
+async def auto_ping():
+    while True:
+        try:
+            requests.get(PING_URL)
+        except Exception as e:
+            print("Ping failed:", e)
+        await asyncio.sleep(300)  # 300 seconds
+
+# ─────────────────────────────────────────────
 
 async def init():
+    start_flask()                 # ✅ Start Flask Web Server
+    asyncio.create_task(auto_ping())  # ✅ Start Auto-Pinger
+
     if (
         not config.STRING1
         and not config.STRING2
