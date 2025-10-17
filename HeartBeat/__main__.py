@@ -30,7 +30,7 @@ def run_flask():
     keepalive_app.run(host="0.0.0.0", port=8080)
 
 def auto_ping():
-    url = "https://<YOUR-RENDER-URL>.onrender.com"  # <<< REPLACE THIS
+    url = "https://ajdrugz-iy53.onrender.com"  # <<< REPLACE THIS
     while True:
         try:
             requests.get(url)
