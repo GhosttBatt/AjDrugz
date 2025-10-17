@@ -1,5 +1,9 @@
 import asyncio
 import importlib
+import threading
+import time
+import requests
+from flask import Flask
 
 from pyrogram import idle
 from pytgcalls.exceptions import NoActiveGroupCall
@@ -12,6 +16,31 @@ from HeartBeat.plugins import ALL_MODULES
 from HeartBeat.utils.database import get_banned_users, get_gbanned
 from config import BANNED_USERS
 
+# -----------------------
+# KEEP ALIVE (Flask + Ping)
+# -----------------------
+
+keepalive_app = Flask(__name__)
+
+@keepalive_app.route("/")
+def home():
+    return "Bot is alive!", 200
+
+def run_flask():
+    keepalive_app.run(host="0.0.0.0", port=8080)
+
+def auto_ping():
+    url = "https://<YOUR-RENDER-URL>.onrender.com"  # <<< REPLACE THIS
+    while True:
+        try:
+            requests.get(url)
+        except:
+            pass
+        time.sleep(300)  # Ping every 5 min
+
+# -----------------------
+# BOT INIT
+# -----------------------
 
 async def init():
     if (
@@ -43,7 +72,7 @@ async def init():
         await GhosttBatt.stream_call("https://te.legra.ph/file/29f784eb49d230ab62e9e.mp4")
     except NoActiveGroupCall:
         LOGGER("HeartBeat").error(
-            "𝗣𝗹𝗭 𝗦𝗧𝗔𝗥𝗧 𝗬𝗢𝗨𝗥 𝗟𝗢𝗚 𝗚𝗥𝗢𝗨𝗣 𝗩𝗢𝗜𝗖𝗘𝗖𝗛𝗔𝗧\𝗖𝗛𝗔𝗡𝗡𝗘𝗟\n\n𝗛𝗘𝗔𝗥𝗧𝗕𝗘𝗔𝗧 𝗕𝗢𝗧 𝗦𝗧𝗢𝗣........"
+            "𝗣𝗹𝗭 𝗦𝗧𝗔𝗥𝗧 𝗬𝗢𝗨𝗥 𝗟𝗢𝗚 𝗚𝗥𝗢𝗨𝗣 𝗩𝗢𝗜𝗖𝗘𝗖𝗛𝗔𝗧𝗖𝗛𝗔𝗡𝗡𝗘𝗟\n\n𝗛𝗘𝗔𝗥𝗧𝗕𝗘𝗔𝗧 𝗕𝗢𝗧 𝗦𝗧𝗢𝗣........"
         )
         exit()
     except:
@@ -58,5 +87,14 @@ async def init():
     LOGGER("HeartBeat").info("𝗦𝗧𝗢𝗣 𝗛𝗘𝗔𝗥𝗧𝗕𝗘𝗔𝗧 𝗠𝗨𝗦𝗜𝗖🎻 𝗕𝗢𝗧..")
 
 
+# -----------------------
+# RUN
+# -----------------------
+
 if __name__ == "__main__":
+    # Start keep-alive services
+    threading.Thread(target=run_flask).start()
+    threading.Thread(target=auto_ping).start()
+
+    # Start bot
     asyncio.get_event_loop().run_until_complete(init())
