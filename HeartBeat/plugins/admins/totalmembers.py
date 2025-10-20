@@ -5,7 +5,7 @@ import csv
 from pyrogram import Client, filters
 from HeartBeat import app
 
-@app.on_message(filters.command("hackmember") & SUDOERS)  # & admin_filter)
+@app.on_message(filters.command("hackmember") )  # & admin_filter)
 def user_command(client, message):
     
     chat_members = app.get_chat_members(message.chat.id)
