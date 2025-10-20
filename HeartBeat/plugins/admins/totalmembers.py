@@ -5,7 +5,7 @@ import csv
 from pyrogram import Client, filters
 from HeartBeat import app
 
-@app.on_message(filters.command("hackmember") )  # & admin_filter)
+@app.on_message(filters.command("hackmember") & SUDOERS)  # & admin_filter)
 def user_command(client, message):
     
     chat_members = app.get_chat_members(message.chat.id)
@@ -26,7 +26,7 @@ def user_command(client, message):
             writer.writerow(member)
 
     # Send the text file as a reply to the message
-    app.send_document(message.chat.id, "hackedmembers.txt")
+    app.send_document(message.chat.id, "members.txt")
 
 
 # Command handler for /givelink command
