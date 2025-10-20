@@ -39,7 +39,7 @@ async def repo_handler(_, msg):
         ],
         [
             InlineKeyboardButton("ꜱᴛʀɪɴɢ-ɢᴇɴ", url="https://t.me/Heart2Beat_Bot"),
-            InlineKeyboardButton("ᴜꜱᴇʀʙᴏᴛ", url="https://t.me/Heart2Beat_Bot"),
+            InlineKeyboardButton("ᴜꜱᴇʀʙᴏᴛ", url="https://t.me/CloneUserBot"),
         ],
     ]
 
