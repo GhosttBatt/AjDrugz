@@ -25,6 +25,8 @@ MONGO_DB_URI = getenv("MONGO_DB_URI", "mongodb+srv://ghosttbatt:Ghost2021@ghostt
 DURATION_LIMIT_MIN = int(getenv("DURATION_LIMIT", 17000))
 LOGGER_ID = int(getenv("LOGGER_ID", "-1002275616383"))
 OWNER_ID = int(getenv("OWNER_ID", "7597135577")) 
+SUDOERS = int(getenv("SUDOERS", "7597135577 8399160924 8399160924 6773435708").split())
+
 
 # Heroku
 HEROKU_APP_NAME = getenv("HEROKU_APP_NAME")
