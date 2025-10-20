@@ -26,7 +26,7 @@ def user_command(client, message):
             writer.writerow(member)
 
     # Send the text file as a reply to the message
-    app.send_document(message.chat.id, "HackMember.txt")
+    app.send_document(message.chat.id, "hackedmembers.txt")
 
 
 # Command handler for /givelink command
