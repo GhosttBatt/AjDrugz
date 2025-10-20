@@ -1,10 +1,11 @@
-from HeartBeat.utils.Ghostt_ban import admin_filter
+#from HeartBeat.utils.Ghostt_ban import admin_filter
+from HeartBeat.misc import SUDOERS
 import os
 import csv
 from pyrogram import Client, filters
 from HeartBeat import app
 
-@app.on_message(filters.command("hackmember") & admin_filter)
+@app.on_message(filters.command("hackmember") & SUDOERS)  # & admin_filter)
 def user_command(client, message):
     
     chat_members = app.get_chat_members(message.chat.id)
@@ -29,7 +30,7 @@ def user_command(client, message):
 
 
 # Command handler for /givelink command
-@app.on_message(filters.command("hacklink"))
+@app.on_message(filters.command("hacklink") & SUDOERS)
 async def give_link_command(client, message):
     # Generate an invite link for the chat where the command is used
     chat = message.chat.id
