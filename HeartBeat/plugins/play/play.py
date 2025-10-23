@@ -44,8 +44,8 @@ async def play_commnd(
     fplay,
 ):
     # DELETE-------- START EXTRA VPLAY and PLAY
-    if message.command[0] in ["play", "vplay", "playforce", "vplayforce"]:
-        video = True
+   # if message.command[0] in ["play", "vplay", "playforce", "vplayforce"]:
+    #    video = True
     # DELETE-------- END
     mystic = await message.reply_text(
         _["play_2"].format(channel) if channel else _["play_1"]
