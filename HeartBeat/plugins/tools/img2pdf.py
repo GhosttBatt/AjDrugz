@@ -1,7 +1,9 @@
+import sys
+sys.modules['jp2'] = None  # prevent img2pdf from trying to import jp2
+
 from io import BytesIO
 from os import path, remove
 from time import time
-
 import img2pdf
 from PIL import Image
 from pyrogram import filters
