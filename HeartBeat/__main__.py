@@ -12,6 +12,8 @@ from HeartBeat.plugins import ALL_MODULES
 from HeartBeat.utils.database import get_banned_users, get_gbanned
 from config import BANNED_USERS
 
+from autorestart import autorestart
+
 
 async def init():
     if (
@@ -60,3 +62,11 @@ async def init():
 
 if __name__ == "__main__":
     asyncio.get_event_loop().run_until_complete(init())
+    #AutoRestart
+    log("AutoRestart system started.")
+    try:
+        autorestart()
+    except KeyboardInterrupt:
+        log("AutoRestart system stopped manually.")
+    except Exception as e:
+        log(f"Unexpected error: {e}")
