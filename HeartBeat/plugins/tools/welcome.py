@@ -159,7 +159,9 @@ async def auto_state(_, message):
 @app.on_chat_member_updated(filters.group, group=-3)
 async def greet_new_member(_, member: ChatMemberUpdated):
     chat_id = member.chat.id
-    count = await app.get_chat_members_count(chat_id)
+    #count = await app.get_chat_members_count(chat_id)
+    chat = await app.get_chat(chat_id)
+    count = chat.members_count or 0
     A = await wlcm.find_one(chat_id)
     if A:
         return
