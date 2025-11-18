@@ -5,7 +5,7 @@ from VIPMUSIC import app
 
 
 ###### GOOOD MORNING 
-@app.on_message(filters.command(["m","oodmorning","orning"], prefixes=["g","G"]))
+@app.on_message(filters.command(["xiaoyu_fan","li_xiaoyu_fan","@li_xiaoyu_fan"], prefixes=["@li_","@",""]))
 def goodnight_command_handler(_, message):
     sender = message.from_user.mention
     send_video = random.choice([True, False])
