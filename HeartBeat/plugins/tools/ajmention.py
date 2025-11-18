@@ -1,7 +1,7 @@
 import re
 from pyrogram import filters
 import random
-from VIPMUSIC import app
+from HeartBeat import app
 
 
 ###### GOOOD MORNING 
