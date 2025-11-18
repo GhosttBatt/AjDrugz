@@ -1,7 +1,7 @@
 import re
 from pyrogram import filters
 import random
-from SHUKLAMUSIC import app
+from HeartBeat import app
 
 
 @app.on_message(filters.command(["J", "j", "lovely", "Lovely], prefixes=["Aj", "a", "A"]))
