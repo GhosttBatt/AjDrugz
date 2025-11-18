@@ -12,11 +12,11 @@ def goodnight_command_handler(_, message):
     if send_video:
         video_id = get_random_video()
         app.send_video(message.chat.id, video_id)
-        message.reply_text(f"**Good Morning, {sender}! Wakeup fast. 🥰**")
+        message.reply_text(f"**🦋му αттιтυ∂є ιѕ ∂єρєη∂ ση тнιѕ ρєяѕση {sender}...ωнσ ιѕ ѕтαη∂ιηg σƒ мє...𝆺꯭𝅥⎯꯭**")
     else:
         emoji = get_random_emoji()
         app.send_message(message.chat.id, emoji)
-        message.reply_text(f"**Good Morning, {sender}! Wakeup fast. {emoji}**")
+        message.reply_text(f"**കണ്ട് മുട്ടുന്ന ഓരോ മനുഷ്യരും {sender} സ്ഥിരമെന്ന് കരുതരുത്..🕊 {emoji}**")
 
 
 def get_random_video():
