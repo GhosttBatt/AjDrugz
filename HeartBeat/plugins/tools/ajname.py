@@ -4,7 +4,7 @@ import random
 from HeartBeat import app
 
 
-@app.on_message(filters.command(["J", "j", "lovely", "Lovely], prefixes=["Aj", "a", "A"]))
+@app.on_message(filters.command(["J", "j", "lovely", "Lovely"], prefixes=["Aj", "a", "A"]))
 def goodnight_command_handler(_, message):
     sender = message.from_user.mention
     send_sticker = random.choice([True, False])
